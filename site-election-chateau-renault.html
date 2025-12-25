@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Votre Ville, Votre Voix - Liste citoyenne pour les élections municipales 2026 à Château-Renault">
+    <title>Votre Ville, Votre Voix - Château-Renault 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c5f5d;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        header .slogan {
+            font-size: 1.8rem;
+            color: #7fd1ae;
+            margin-top: 0.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: #234948;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        nav li {
+            margin: 0.5rem 1rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background: rgba(127, 209, 174, 0.2);
+            color: #7fd1ae;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 70px;
+        }
+
+        h2 {
+            color: #2c5f5d;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 4px solid #7fd1ae;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+        }
+
+        .hero h2 {
+            color: #7fd1ae;
+            border: none;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 1.2rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+            background: #6bc199;
+        }
+
+        .numero-section {
+            font-size: 4rem;
+            color: #7fd1ae;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            color: #2c5f5d;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .programme-section {
+            background: #f0f9f6;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            border-left: 6px solid #7fd1ae;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .programme-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .programme-section li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .programme-section li strong {
+            color: #2c5f5d;
+        }
+
+        .programme-section li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #7fd1ae;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .programme-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-top: 1rem;
+            color: #2c5f5d;
+        }
+
+        .tete-liste {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            flex-wrap: wrap;
+            color: white;
+        }
+
+        .tete-liste img {
+            width: 300px;
+            height: 400px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 6px solid #7fd1ae;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .tete-liste-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .tete-liste h3 {
+            color: #7fd1ae;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .tete-liste p {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .contact-info h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .contact-info a {
+            color: #2c5f5d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .social-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #4267B2;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .social-button:hover {
+            background: #365899;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 2rem auto;
+            background: #f0f9f6;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 3px 20px rgba(0,0,0,0.1);
+            border: 3px solid #7fd1ae;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c5f5d;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #7fd1ae;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2c5f5d;
+            box-shadow: 0 0 10px rgba(127, 209, 174, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 1.2rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        .submit-button:hover {
+            background: #6bc199;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #2c5f5d;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 4rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        footer a {
+            color: #7fd1ae;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .footer-slogan {
+            font-size: 1.3rem;
+            color: #7fd1ae;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            header .slogan {
+                font-size: 1.3rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav li {
+                margin: 0.3rem 0;
+            }
+
+            .tete-liste {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .tete-liste img {
+                width: 100%;
+                max-width: 300px;
+                height: auto;
+            }
+
+            .numero-section {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Votre Ville, Votre Voix</h1>
+        <div class="slogan">L'avenir c'est vous</div>
+        <p>Élections Municipales 2026 - Château-Renault</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#programme">Notre programme</a></li>
+            <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
+            <li><a href="#candidate">La candidate</a></li>
+            <li><a href="#contact">Nous rejoindre</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <section id="accueil">
+            <div class="hero">
+                <h2>L'avenir c'est vous</h2>
+                <p>« Votre Ville, Votre Voix » dans le cadre des élections municipales de 2026.</p>
+                <p>Rejoignez-nous pour construire ensemble un projet réaliste, soucieux des équilibres budgétaires, mais ambitieux au service des habitants.</p>
+                <a href="#programme" class="cta-button">Découvrir notre programme</a>
+            </div>
+        </section>
+
+        <section id="programme">
+            <h2>Notre Programme</h2>
+            
+            <div class="programme-section">
+                <div class="numero-section">1.</div>
+                <div class="section-title">L'avenir, c'est vous !</div>
+                <ul>
+                    <li><strong>VOUS VOULEZ</strong> vivre dans une ville plus humaine, plus juste, plus écologique, plus égalitaire qui permettra à chacun et chacune de se construire, s'épanouir et trouver sa place.</li>
+                    <li><strong>VOUS VOULEZ</strong> renouer des liens forts avec les associations culturelles, sportives, éducatives et sociales. Créer de nouveaux espaces de dialogue, préserver le cinéma tel qu'il existe.</li>
+                    <li><strong>VOUS VOULEZ</strong> reconstruire et améliorer l'image de Château-Renault.</li>
+                    <li><strong>VOUS VOULEZ</strong> soutenir et développer l'emploi avec les acteurs locaux, les commerçants, les artisans, et les entreprises.</li>
+                    <li><strong>VOUS VOULEZ</strong> prendre soin de nos aînés, des jeunes, soutenir les personnes porteuses d'un handicap, retrouver l'harmonie, la fraternité et la solidarité.</li>
+                    <li><strong>VOUS VOULEZ</strong> sauver ou préserver votre patrimoine immobilier, historique et naturel qui se dégrade d'années en années.</li>
+                    <li><strong>VOUS VOULEZ</strong> assurer vos droits à la tranquillité et à la sécurité.</li>
+                </ul>
+                <p><strong>Rejoignez-nous pour construire ensemble</strong> un projet réaliste, soucieux des équilibres budgétaires, mais ambitieux au service des habitants.</p>
+            </div>
+
+            <div class="programme-section">
+                <div class="numero-section">2.</div>
+                <div class="section-title">Qui sommes-nous ?</div>
+                <p><strong>Nous avons la volonté de rassembler et de fédérer plutôt que de diviser.</strong> Nous sommes attachés à notre territoire et nous portons des valeurs sociales, écologiques et humanistes. <strong>Nous nous sommes réunis pour construire une nouvelle voie, écouter vos besoins et vos projets pour la ville.</strong> Notre équipe n'est pas close, elle reste ouverte car nous voulons allier expérience et renouveau, avec respect et transparence.</p>
+            </div>
+        </section>
+
+        <section id="candidate">
+            <h2>Notre Candidate / Tête de Liste</h2>
+            
+            <div class="programme-section">
+                <div class="numero-section">3.</div>
+                <div class="section-title">Qui est notre candidate / Tête de liste ?</div>
+            </div>
+
+            <div class="tete-liste">
+                <img src="https://via.placeholder.com/300x400/2c5f5d/7fd1ae?text=Brigitte+VENGEON" alt="Brigitte VENGEON">
+                <div class="tete-liste-info">
+                    <h3>Brigitte Vengeon</h3>
+                    <p>Beaucoup d'entre vous l'ont déjà croisée. <strong>Brigitte Vengeon porte sur le terrain un idéal démocratique et une manière d'être proche, de chacun et de chacune.</strong></p>
+                    <p>Elle a été recrutée par Jean Delaneau pour diriger le service culture communication à la mairie de Château-Renault pendant 13 ans puis elle a été élue adjointe au Maire et déléguée communautaire de 2014 à 2020.</p>
+                    <p>Après une longue carrière de cadre, attachée principale dans la fonction publique territoriale (Notre-Dame-d'Oé et Tours métropole), elle exerce actuellement le métier de conseillère en immobilier à Château-Renault.</p>
+                    
+                    <div class="contact-info">
+                        <h4>Rejoignez-nous !</h4>
+                        <p>Inscrivez-vous sur les listes électorales pour voter en mars 2026.</p>
+                        <p>📞 Tête de liste Brigitte Vengeon : <a href="tel:0672258767">06 72 25 87 67</a></p>
+                        <p>✉️ <a href="mailto:votrevillevotrevoix@gmail.com">votrevillevotrevoix@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="suivez-nous">
+            <h2>Suivez Notre Campagne</h2>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61584724443873&locale=fr_FR" target="_blank" class="social-button">
+                    <span>📘</span> Suivez-nous sur Facebook
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 1rem; color: #2c5f5d; font-size: 1.1rem;">
+                Restez informés de nos actualités, événements et rencontres citoyennes
+            </p>
+        </section>
+
+        <section id="contact">
+            <h2>Nous Contacter</h2>
+            <div class="contact-form">
+                <form action="https://formspree.io/f/votrevillevotrevoix@gmail.com" method="POST">
+                    <div class="form-group">
+                        <label for="nom">Nom *</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Votre message *</label>
+                        <textarea id="message" name="message" required placeholder="Partagez vos idées, vos préoccupations, vos projets pour Château-Renault..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Envoyer</button>
+                </form>
+                <p style="text-align: center; margin-top: 1.5rem; color: #2c5f5d; font-size: 1.1rem;">
+                    Ou contactez-nous directement :<br>
+                    <strong>📞 <a href="tel:0672258767">06 72 25 87 67</a></strong><br>
+                    <strong>✉️ <a href="mailto:votrevillevotrevoix@gmail.com">votrevillevotrevoix@gmail.com</a></strong>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p><strong>VOTRE VILLE, VOTRE VOIX</strong></p>
+        <div class="footer-slogan">L'avenir c'est vous</div>
+        <p>Liste citoyenne pour les élections municipales 2026</p>
+        <p><strong>Château-Renault - Votre Ville, Votre Voix</strong></p>
+        <p style="margin-top: 1.5rem;">
+            📞 <a href="tel:0672258767">06 72 25 87 67</a> | 
+            ✉️ <a href="mailto:votrevillevotrevoix@gmail.com">votrevillevotrevoix@gmail.com</a> | 
+            📘 <a href="https://www.facebook.com/profile.php?id=61584724443873&locale=fr_FR" target="_blank">Facebook</a>
+        </p>
+        <p style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
+            © 2025 Votre Ville, Votre Voix - Tous droits réservés
+        </p>
+    </footer>
+</body>
+</html>
