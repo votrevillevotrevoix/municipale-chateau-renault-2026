@@ -169,15 +169,23 @@
             font-size: 4rem;
             color: #7fd1ae;
             font-weight: bold;
-            margin-bottom: 1rem;
+            line-height: 1;
+            margin: 0;
         }
 
         .section-title {
             color: #2c5f5d;
             font-size: 1.8rem;
-            margin-bottom: 1.5rem;
             text-transform: uppercase;
             font-weight: bold;
+            margin: 0;
+        }
+
+        .programme-section-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .programme-section {
@@ -556,8 +564,10 @@
             <h2>Notre Programme</h2>
             
             <div class="programme-section">
-                <div class="numero-section">1.</div>
-                <div class="section-title">L'avenir, c'est vous !</div>
+                <div class="programme-section-header">
+                    <div class="numero-section">1.</div>
+                    <div class="section-title">L'avenir, c'est vous !</div>
+                </div>
                 <ul>
                     <li><strong>VOUS VOULEZ</strong> vivre dans une ville plus humaine, plus juste, plus écologique, plus égalitaire qui permettra à chacun et chacune de se construire, s'épanouir et trouver sa place.</li>
                     <li><strong>VOUS VOULEZ</strong> renouer des liens forts avec les associations culturelles, sportives, éducatives et sociales. Créer de nouveaux espaces de dialogue, préserver le cinéma tel qu'il existe.</li>
@@ -571,8 +581,10 @@
             </div>
 
             <div class="programme-section">
-                <div class="numero-section">2.</div>
-                <div class="section-title">Qui sommes-nous ?</div>
+                <div class="programme-section-header">
+                    <div class="numero-section">2.</div>
+                    <div class="section-title">Qui sommes-nous ?</div>
+                </div>
                 <p><strong>Nous avons la volonté de rassembler et de fédérer plutôt que de diviser.</strong> Nous sommes attachés à notre territoire et nous portons des valeurs sociales, écologiques et humanistes. <strong>Nous nous sommes réunis pour construire une nouvelle voie, écouter vos besoins et vos projets pour la ville.</strong> Notre équipe n'est pas close, elle reste ouverte car nous voulons allier expérience et renouveau, avec respect et transparence.</p>
             </div>
         </section>
