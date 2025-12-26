@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Politique de confidentialité et protection des données - Votre Ville, Votre Voix">
+    <title>Politique de Confidentialité - Votre Ville, Votre Voix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c5f5d;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #2c5f5d;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #7fd1ae;
+        }
+
+        .back-link i {
+            margin-right: 0.5rem;
+        }
+
+        h2 {
+            color: #2c5f5d;
+            font-size: 2rem;
+            margin: 2.5rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #7fd1ae;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            color: #2c5f5d;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .legal-section {
+            background: #f0f9f6;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #7fd1ae;
+        }
+
+        .important-notice {
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .rights-box {
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .rights-box h3 {
+            color: #7fd1ae;
+            border-bottom: 2px solid #7fd1ae;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .rights-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .rights-box ul li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .rights-box ul li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7fd1ae;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+            font-size: 1.1rem;
+        }
+
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        strong {
+            color: #2c5f5d;
+        }
+
+        .contact-box {
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .contact-box h3 {
+            margin-bottom: 1rem;
+        }
+
+        .contact-box a {
+            color: #2c5f5d;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #2c5f5d;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: #7fd1ae;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p, ul {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Politique de Confidentialité</h1>
+        <p>Protection de vos données personnelles</p>
+    </header>
+
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Retour à l'accueil
+        </a>
+
+        <div class="important-notice">
+            <i class="fas fa-shield-alt"></i>
+            Votre vie privée est importante pour nous. Cette politique de confidentialité explique comment nous collectons,
+            utilisons et protégeons vos données personnelles conformément au RGPD (Règlement Général sur la Protection des Données)
+            et à la loi « Informatique et Libertés ».
+        </div>
+
+        <div class="legal-section">
+            <h2>1. Responsable du traitement des données</h2>
+            <p>
+                <strong>Responsable :</strong> Brigitte VENGEON<br>
+                <strong>Qualité :</strong> Tête de liste "Votre Ville, Votre Voix"<br>
+                <strong>Contact :</strong> <a href="mailto:votrevillevotrevoix@gmail.com" style="color: #2c5f5d;">votrevillevotrevoix@gmail.com</a><br>
+                <strong>Téléphone :</strong> <a href="tel:0672258767" style="color: #2c5f5d;">06 72 25 87 67</a>
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>2. Données collectées</h2>
+
+            <h3>2.1 Données collectées via le formulaire de contact</h3>
+            <p>Lorsque vous utilisez notre formulaire de contact, nous collectons :</p>
+            <ul>
+                <li><strong>Nom :</strong> pour pouvoir vous identifier et personnaliser notre réponse</li>
+                <li><strong>Adresse email :</strong> pour vous répondre</li>
+                <li><strong>Numéro de téléphone</strong> (facultatif) : pour vous contacter si nécessaire</li>
+                <li><strong>Message :</strong> le contenu de votre demande ou suggestion</li>
+            </ul>
+
+            <h3>2.2 Données de navigation</h3>
+            <p>
+                Ce site ne collecte pas de cookies de suivi ni de données de navigation à des fins commerciales.
+                Aucun outil d'analyse statistique (Google Analytics, etc.) n'est utilisé actuellement sur ce site.
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>3. Finalité du traitement</h2>
+            <p>Vos données personnelles sont collectées pour les finalités suivantes :</p>
+            <ul>
+                <li><strong>Répondre à vos messages :</strong> traiter vos demandes d'information, questions ou suggestions</li>
+                <li><strong>Communication politique :</strong> vous tenir informé(e) de nos actualités, événements et propositions si vous le souhaitez</li>
+                <li><strong>Participation citoyenne :</strong> recueillir vos idées et propositions pour notre programme électoral</li>
+            </ul>
+            <p>
+                <strong>Base légale :</strong> Le traitement est fondé sur votre consentement (art. 6.1.a du RGPD) et sur notre intérêt légitime
+                à communiquer avec les citoyens dans le cadre de notre campagne électorale (art. 6.1.f du RGPD).
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>4. Destinataires des données</h2>
+            <p>
+                Vos données personnelles sont exclusivement destinées à l'équipe de campagne "Votre Ville, Votre Voix"
+                et ne sont en aucun cas transmises à des tiers à des fins commerciales.
+            </p>
+            <p>
+                <strong>Aucune vente, location ou échange de vos données personnelles n'est effectué.</strong>
+            </p>
+            <p>
+                Les données peuvent être partagées avec :
+            </p>
+            <ul>
+                <li>Les membres de l'équipe de campagne strictement nécessaires pour traiter votre demande</li>
+                <li>Notre hébergeur web (dans le cadre du stockage des données)</li>
+                <li>Le service Formspree pour la gestion du formulaire de contact</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>5. Durée de conservation</h2>
+            <p>Vos données personnelles sont conservées pendant :</p>
+            <ul>
+                <li><strong>Pendant la campagne électorale :</strong> jusqu'au scrutin du 22 mars 2026</li>
+                <li><strong>Après les élections :</strong>
+                    <ul>
+                        <li>6 mois maximum pour les messages de contact traités</li>
+                        <li>Les données peuvent être conservées plus longtemps uniquement si vous avez donné votre accord explicite pour continuer à recevoir nos informations</li>
+                    </ul>
+                </li>
+            </ul>
+            <p>
+                Passé ce délai, vos données seront supprimées de manière sécurisée, sauf obligation légale de conservation
+                (par exemple, pour les documents comptables liés à la campagne).
+            </p>
+        </div>
+
+        <div class="rights-box">
+            <h3><i class="fas fa-user-shield"></i> 6. Vos droits (RGPD)</h3>
+            <p>Conformément au RGPD, vous disposez des droits suivants concernant vos données personnelles :</p>
+            <ul>
+                <li><strong>Droit d'accès :</strong> vous pouvez demander à consulter les données que nous détenons sur vous</li>
+                <li><strong>Droit de rectification :</strong> vous pouvez demander la correction de données inexactes ou incomplètes</li>
+                <li><strong>Droit à l'effacement ("droit à l'oubli") :</strong> vous pouvez demander la suppression de vos données</li>
+                <li><strong>Droit à la limitation du traitement :</strong> vous pouvez demander de limiter l'utilisation de vos données</li>
+                <li><strong>Droit d'opposition :</strong> vous pouvez vous opposer au traitement de vos données à des fins de communication politique</li>
+                <li><strong>Droit à la portabilité :</strong> vous pouvez récupérer vos données dans un format structuré</li>
+                <li><strong>Droit de retirer votre consentement :</strong> à tout moment, sans affecter la licéité du traitement antérieur</li>
+            </ul>
+        </div>
+
+        <div class="contact-box">
+            <h3><i class="fas fa-envelope"></i> Comment exercer vos droits ?</h3>
+            <p>
+                Pour exercer l'un de ces droits, vous pouvez nous contacter :
+            </p>
+            <p style="margin-top: 1rem;">
+                <strong>Par email :</strong> <a href="mailto:votrevillevotrevoix@gmail.com">votrevillevotrevoix@gmail.com</a><br>
+                <strong>Par téléphone :</strong> <a href="tel:0672258767">06 72 25 87 67</a><br>
+                <strong>Par courrier :</strong> 6 bis rue de la République, 37110 Château-Renault
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.95rem;">
+                Nous nous engageons à répondre à votre demande dans un délai maximum d'un mois.
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>7. Sécurité des données</h2>
+            <p>
+                Nous mettons en œuvre toutes les mesures techniques et organisationnelles appropriées pour protéger vos données
+                contre la perte, l'utilisation abusive, l'accès non autorisé, la divulgation, l'altération ou la destruction.
+            </p>
+            <p>
+                Cependant, aucune transmission de données sur Internet ne peut être garantie comme étant 100% sécurisée.
+                Nous nous efforçons de protéger vos données, mais ne pouvons garantir la sécurité absolue des informations
+                que vous nous transmettez.
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>8. Cookies</h2>
+            <p>
+                Ce site n'utilise actuellement <strong>aucun cookie de suivi, cookie publicitaire ou cookie analytique</strong>.
+            </p>
+            <p>
+                Si des cookies techniques devaient être utilisés à l'avenir (pour améliorer la navigation par exemple),
+                vous en serez informé(e) et pourrez donner ou refuser votre consentement via un bandeau dédié.
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>9. Service tiers : Formspree</h2>
+            <p>
+                Le formulaire de contact utilise le service <strong>Formspree</strong> pour la gestion et l'envoi des messages.
+            </p>
+            <p>
+                Lorsque vous soumettez le formulaire, vos données transitent par les serveurs de Formspree avant de nous parvenir.
+                Formspree s'engage à respecter les normes de protection des données.
+            </p>
+            <p>
+                Pour plus d'informations : <a href="https://formspree.io/legal/privacy-policy/" target="_blank" style="color: #2c5f5d; text-decoration: underline;">Politique de confidentialité de Formspree</a>
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>10. Droit de réclamation</h2>
+            <p>
+                Si vous estimez que vos droits ne sont pas respectés, vous avez le droit d'introduire une réclamation auprès de la
+                <strong>Commission Nationale de l'Informatique et des Libertés (CNIL)</strong> :
+            </p>
+            <p>
+                <strong>CNIL</strong><br>
+                3 Place de Fontenoy<br>
+                TSA 80715<br>
+                75334 PARIS CEDEX 07<br>
+                Téléphone : 01 53 73 22 22<br>
+                Site web : <a href="https://www.cnil.fr" target="_blank" style="color: #2c5f5d; text-decoration: underline;">www.cnil.fr</a>
+            </p>
+        </div>
+
+        <div class="legal-section">
+            <h2>11. Modifications de la politique de confidentialité</h2>
+            <p>
+                Nous nous réservons le droit de modifier cette politique de confidentialité à tout moment.
+                Toute modification sera publiée sur cette page avec la date de mise à jour.
+            </p>
+            <p>
+                <strong>Dernière mise à jour :</strong> 26 décembre 2025
+            </p>
+        </div>
+
+        <div class="important-notice">
+            <i class="fas fa-question-circle"></i>
+            Pour toute question concernant cette politique de confidentialité ou le traitement de vos données,
+            n'hésitez pas à nous contacter aux coordonnées indiquées ci-dessus.
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>VOTRE VILLE, VOTRE VOIX</strong></p>
+        <p>Liste citoyenne pour les élections municipales 2026 - Château-Renault</p>
+        <p style="margin-top: 1rem;">
+            <a href="index.html">Accueil</a> |
+            <a href="mentions-legales.html">Mentions légales</a> |
+            <a href="politique-confidentialite.html">Politique de confidentialité</a>
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.95rem; opacity: 0.9;">
+            © 2025 Votre Ville, Votre Voix - Tous droits réservés
+        </p>
+    </footer>
+</body>
+</html>
