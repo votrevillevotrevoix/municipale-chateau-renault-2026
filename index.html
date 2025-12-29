@@ -533,9 +533,94 @@
                 grid-template-columns: 1fr !important;
             }
         }
+
+        /* Carte de vœux modale */
+        .voeux-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .voeux-modal.show {
+            display: flex;
+        }
+
+        .voeux-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .voeux-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .voeux-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #7fd1ae;
+            color: #2c5f5d;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .voeux-close:hover {
+            background: #6bc199;
+            transform: rotate(90deg);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .voeux-content {
+                max-width: 95%;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Modale carte de vœux -->
+    <div id="voeuxModal" class="voeux-modal">
+        <div class="voeux-content">
+            <button class="voeux-close" onclick="closeVoeux()">&times;</button>
+            <img src="images/cartedevoeux.jpg" alt="Carte de vœux 2026 - Votre Ville, Votre Voix">
+        </div>
+    </div>
+
     <header>
         <h1>Votre Ville, Votre Voix</h1>
         <div class="slogan">L'avenir c'est vous</div>
@@ -800,5 +885,48 @@
             © 2025 Votre Ville, Votre Voix - Tous droits réservés
         </p>
     </footer>
+
+    <script>
+        // Fonction pour fermer la modale de vœux
+        function closeVoeux() {
+            const modal = document.getElementById('voeuxModal');
+            modal.classList.remove('show');
+        }
+
+        // Fonction pour afficher la carte de vœux
+        function showVoeux() {
+            // Vérifier si on est avant le 31 janvier 2026
+            const now = new Date();
+            const endDate = new Date('2026-01-31T23:59:59');
+
+            if (now <= endDate) {
+                // Vérifier si l'utilisateur n'a pas déjà vu la carte (pour cette session)
+                if (!sessionStorage.getItem('voeuxSeen')) {
+                    const modal = document.getElementById('voeuxModal');
+
+                    // Afficher la modale après un court délai
+                    setTimeout(() => {
+                        modal.classList.add('show');
+                        sessionStorage.setItem('voeuxSeen', 'true');
+
+                        // Fermer automatiquement après 15 secondes
+                        setTimeout(() => {
+                            closeVoeux();
+                        }, 15000);
+                    }, 500);
+                }
+            }
+        }
+
+        // Fermer la modale si on clique en dehors de l'image
+        document.getElementById('voeuxModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeVoeux();
+            }
+        });
+
+        // Lancer l'affichage de la carte de vœux au chargement de la page
+        window.addEventListener('load', showVoeux);
+    </script>
 </body>
 </html>
