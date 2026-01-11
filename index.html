@@ -55,7 +55,7 @@
 
         nav {
             background: #234948;
-            padding: 1rem 0;
+            padding: 0.5rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -73,7 +73,15 @@
         }
 
         nav li {
-            margin: 0.5rem 1rem;
+            margin: 0.3rem 1rem;
+        }
+
+        /* Élément de rupture pour forcer une nouvelle ligne */
+        nav li.nav-break {
+            flex-basis: 100%;
+            height: 0;
+            margin: 0;
+            padding: 0;
         }
 
         nav a {
@@ -506,6 +514,11 @@
                 margin: 0.3rem 0;
             }
 
+            /* Cacher l'élément de rupture sur mobile */
+            nav li.nav-break {
+                display: none;
+            }
+
             .tete-liste {
                 flex-direction: column;
                 text-align: center;
@@ -880,6 +893,7 @@
             <li><a href="#programme">Notre programme</a></li>
             <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
             <li><a href="#candidate">La candidate</a></li>
+            <li class="nav-break"></li>
             <li><a href="#actualites">Actualités</a></li>
             <li><a href="#contact">Nous contacter</a></li>
             <li><a href="#rencontrer">Nous rencontrer</a></li>
