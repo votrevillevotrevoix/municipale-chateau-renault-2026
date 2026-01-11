@@ -12,26 +12,37 @@ Le fichier se trouve à la racine du projet : `articles.json`
 
 ### Étape 2 : Copier le modèle d'article
 
-**Option 1 : Sans image (rapide)**
+**Option 1 : Article simple (sans image)**
 ```json
   {
     "titre": "Titre de votre article",
     "date": "2026-01-11",
     "source": "Facebook",
-    "lien": "https://votre-lien.com"
+    "lien": "https://votre-lien-facebook.com"
   },
 ```
 
-**Option 2 : Avec image (plus visuel)**
+**Option 2 : Article avec image**
 ```json
   {
     "titre": "Titre de votre article",
     "date": "2026-01-11",
     "source": "Facebook",
-    "lien": "https://votre-lien.com",
+    "lien": "https://votre-lien-facebook.com",
     "image": "images/nom-de-votre-image.jpg"
   },
 ```
+
+**Option 3 : Avec code iframe Facebook (le plus simple !)**
+```json
+  {
+    "titre": "Titre de votre article",
+    "date": "2026-01-11",
+    "source": "Facebook",
+    "lien": "<iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2F...\" ></iframe>"
+  },
+```
+💡 Collez directement le code iframe que Facebook vous donne !
 
 ### Étape 3 : Insérer l'article en haut de la liste
 
@@ -114,13 +125,31 @@ Voici un exemple de fichier `articles.json` avec 3 articles (certains avec image
 
 ## 📱 Comment récupérer le lien Facebook ?
 
-Sur votre post Facebook :
+**🎉 BONNE NOUVELLE : Vous pouvez utiliser les DEUX méthodes !**
+
+### Méthode 1 : Copier le lien (Recommandé)
 1. Cliquez sur les **3 points** (...) en haut à droite du post
 2. Choisissez **"Copier le lien"**
 3. Le lien ressemble à : `https://www.facebook.com/share/p/xxxxx/`
-4. **Collez ce lien** dans le champ `"lien"` de votre JSON
+4. Collez ce lien dans le champ `"lien"`
 
-⚠️ N'utilisez **PAS** le code d'intégration (iframe), juste l'URL directe.
+### Méthode 2 : Code d'intégration (ça marche aussi !)
+1. Cliquez sur les **3 points** (...) en haut à droite du post
+2. Choisissez **"Intégrer"** ou **"Incorporer"**
+3. Copiez **TOUT** le code qui commence par `<iframe...`
+4. Collez-le directement dans le champ `"lien"` (entre les guillemets)
+
+**Exemple avec iframe :**
+```json
+{
+  "titre": "Notre dernier événement",
+  "date": "2026-01-11",
+  "source": "Facebook",
+  "lien": "<iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02gX9...\" width=\"500\" height=\"603\"></iframe>"
+}
+```
+
+💡 **Le système extrait automatiquement l'URL** du code iframe, donc les deux méthodes fonctionnent parfaitement !
 
 ---
 
@@ -191,6 +220,11 @@ Si les articles ne s'affichent pas :
 - Gardez les titres courts et percutants (max 60 caractères)
 - Utilisez des dates cohérentes
 - Archivez les anciens articles (supprimez-les du fichier) après quelques mois
+
+**Liens Facebook :**
+- **Le plus simple** : Utilisez directement le code d'intégration (iframe) que Facebook vous propose
+- Pas besoin d'extraire l'URL, collez tout le code `<iframe...>` directement
+- Le système s'occupe de tout automatiquement !
 
 **Images :**
 - Les images rendent les cartes plus attractives (recommandé !)

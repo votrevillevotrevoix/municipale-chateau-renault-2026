@@ -1191,6 +1191,24 @@
             }
         });
 
+        // Fonction pour extraire l'URL d'un iframe Facebook
+        function extractFacebookUrl(linkOrIframe) {
+            // Si c'est déjà une URL simple, la retourner telle quelle
+            if (!linkOrIframe.includes('<iframe')) {
+                return linkOrIframe;
+            }
+
+            // Extraire l'URL du paramètre href dans l'iframe
+            const match = linkOrIframe.match(/href=([^&"]+)/);
+            if (match && match[1]) {
+                // Décoder l'URL (remplacer %3A par :, %2F par /, etc.)
+                return decodeURIComponent(match[1]);
+            }
+
+            // Si on ne trouve pas l'URL, retourner le lien tel quel
+            return linkOrIframe;
+        }
+
         // Fonction pour charger et afficher les articles
         async function loadArticles() {
             try {
@@ -1230,6 +1248,9 @@
                     // Générer le HTML de l'image si elle existe
                     const imageHTML = article.image ? `<img src="${article.image}" alt="${article.titre}" class="article-image">` : '';
 
+                    // Extraire l'URL si c'est un iframe
+                    const finalUrl = extractFacebookUrl(article.lien);
+
                     return `
                         <div class="article-card">
                             ${imageHTML}
@@ -1241,7 +1262,7 @@
                                     <span class="article-date">${dateFormatted}</span>
                                 </div>
                                 <h3 class="article-title">${article.titre}</h3>
-                                <a href="${article.lien}" target="_blank" class="article-link" rel="noopener noreferrer">
+                                <a href="${finalUrl}" target="_blank" class="article-link" rel="noopener noreferrer">
                                     Lire l'article <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
