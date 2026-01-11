@@ -712,18 +712,33 @@
 
         .article-card {
             background: #f0f9f6;
-            padding: 2rem;
+            padding: 0;
             border-radius: 15px;
             border-left: 6px solid #7fd1ae;
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
 
         .article-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 3px solid #7fd1ae;
+        }
+
+        .article-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .article-header {
@@ -1212,18 +1227,24 @@
                         sourceClass = 'facebook';
                     }
 
+                    // Générer le HTML de l'image si elle existe
+                    const imageHTML = article.image ? `<img src="${article.image}" alt="${article.titre}" class="article-image">` : '';
+
                     return `
                         <div class="article-card">
-                            <div class="article-header">
-                                <span class="article-source ${sourceClass}">
-                                    <i class="${icon}"></i> ${article.source}
-                                </span>
-                                <span class="article-date">${dateFormatted}</span>
+                            ${imageHTML}
+                            <div class="article-content">
+                                <div class="article-header">
+                                    <span class="article-source ${sourceClass}">
+                                        <i class="${icon}"></i> ${article.source}
+                                    </span>
+                                    <span class="article-date">${dateFormatted}</span>
+                                </div>
+                                <h3 class="article-title">${article.titre}</h3>
+                                <a href="${article.lien}" target="_blank" class="article-link" rel="noopener noreferrer">
+                                    Lire l'article <i class="fas fa-arrow-right"></i>
+                                </a>
                             </div>
-                            <h3 class="article-title">${article.titre}</h3>
-                            <a href="${article.lien}" target="_blank" class="article-link" rel="noopener noreferrer">
-                                Lire l'article <i class="fas fa-arrow-right"></i>
-                            </a>
                         </div>
                     `;
                 }).join('');

@@ -3,7 +3,8 @@
     "titre": "Ouverture de notre local de campagne",
     "date": "2026-01-08",
     "source": "Facebook",
-    "lien": "https://www.facebook.com/profile.php?id=61584724443873"
+    "lien": "https://www.facebook.com/profile.php?id=61584724443873",
+    "image": "images/Local.jpg"
   },
   {
     "titre": "Rencontre avec les commerçants du centre-ville",
@@ -15,6 +16,7 @@
     "titre": "Nos vœux pour 2026 : L'avenir c'est vous",
     "date": "2026-01-01",
     "source": "Facebook",
-    "lien": "https://www.facebook.com/profile.php?id=61584724443873"
+    "lien": "https://www.facebook.com/profile.php?id=61584724443873",
+    "image": "images/cartedevoeux.jpg"
   }
 ]
