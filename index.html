@@ -732,6 +732,103 @@
                 width: 100%;
             }
         }
+
+        /* Section Actualités */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: #f0f9f6;
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 6px solid #7fd1ae;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+        }
+
+        .article-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .article-source.facebook {
+            background: #4267B2;
+            color: white;
+        }
+
+        .article-date {
+            color: #2c5f5d;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .article-title {
+            font-size: 1.3rem;
+            color: #2c5f5d;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .article-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #2c5f5d;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s;
+            align-self: flex-start;
+        }
+
+        .article-link:hover {
+            background: #3d8b85;
+            transform: translateX(5px);
+        }
+
+        .articles-empty {
+            text-align: center;
+            padding: 3rem;
+            background: #f0f9f6;
+            border-radius: 15px;
+            color: #2c5f5d;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -768,6 +865,7 @@
             <li><a href="#programme">Notre programme</a></li>
             <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
             <li><a href="#candidate">La candidate</a></li>
+            <li><a href="#actualites">Actualités</a></li>
             <li><a href="#contact">Nous contacter</a></li>
             <li><a href="#rencontrer">Nous rencontrer</a></li>
         </ul>
@@ -909,6 +1007,20 @@
             <p style="text-align: center; margin-top: 1rem; color: #2c5f5d; font-size: 1.1rem;">
                 Restez informés de nos actualités, événements et rencontres citoyennes
             </p>
+        </section>
+
+        <section id="actualites">
+            <h2>Actualités de Campagne</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #2c5f5d; font-size: 1.2rem;">
+                Découvrez nos articles, publications sur les réseaux sociaux et notre présence dans la presse locale
+            </p>
+            <div id="articlesContainer" class="articles-grid">
+                <!-- Les articles seront chargés ici automatiquement depuis articles.json -->
+                <div class="articles-empty">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; color: #7fd1ae;"></i>
+                    <p style="margin-top: 1rem;">Chargement des articles...</p>
+                </div>
+            </div>
         </section>
 
         <section id="contact">
@@ -1094,6 +1206,68 @@
                 closeVideo();
             }
         });
+
+        // Fonction pour charger et afficher les articles
+        async function loadArticles() {
+            try {
+                const response = await fetch('articles.json');
+                if (!response.ok) {
+                    throw new Error('Erreur de chargement des articles');
+                }
+                const articles = await response.json();
+
+                const container = document.getElementById('articlesContainer');
+
+                if (articles.length === 0) {
+                    container.innerHTML = '<div class="articles-empty"><p>Aucun article disponible pour le moment.</p></div>';
+                    return;
+                }
+
+                // Trier les articles par date décroissante (plus récent en premier)
+                articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // Générer le HTML pour chaque article
+                container.innerHTML = articles.map(article => {
+                    const date = new Date(article.date);
+                    const dateFormatted = date.toLocaleDateString('fr-FR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    });
+
+                    // Déterminer l'icône et la classe CSS selon la source
+                    let icon = 'fa-newspaper';
+                    let sourceClass = '';
+                    if (article.source.toLowerCase().includes('facebook')) {
+                        icon = 'fab fa-facebook';
+                        sourceClass = 'facebook';
+                    }
+
+                    return `
+                        <div class="article-card">
+                            <div class="article-header">
+                                <span class="article-source ${sourceClass}">
+                                    <i class="${icon}"></i> ${article.source}
+                                </span>
+                                <span class="article-date">${dateFormatted}</span>
+                            </div>
+                            <h3 class="article-title">${article.titre}</h3>
+                            <a href="${article.lien}" target="_blank" class="article-link" rel="noopener noreferrer">
+                                Lire l'article <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Erreur lors du chargement des articles:', error);
+                const container = document.getElementById('articlesContainer');
+                container.innerHTML = '<div class="articles-empty"><p>Impossible de charger les articles. Veuillez réessayer plus tard.</p></div>';
+            }
+        }
+
+        // Charger les articles au chargement de la page
+        window.addEventListener('load', loadArticles);
     </script>
 </body>
 </html>
