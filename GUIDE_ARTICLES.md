@@ -133,23 +133,33 @@ Voici un exemple de fichier `articles.json` avec 3 articles (certains avec image
 3. Le lien ressemble à : `https://www.facebook.com/share/p/xxxxx/`
 4. Collez ce lien dans le champ `"lien"`
 
-### Méthode 2 : Code d'intégration (ça marche aussi !)
+### Méthode 2 : Code d'intégration (ATTENTION aux guillemets !)
 1. Cliquez sur les **3 points** (...) en haut à droite du post
 2. Choisissez **"Intégrer"** ou **"Incorporer"**
 3. Copiez **TOUT** le code qui commence par `<iframe...`
-4. Collez-le directement dans le champ `"lien"` (entre les guillemets)
+4. **IMPORTANT** : Remplacez tous les `"` par `\"` dans le code iframe (sauf le premier et le dernier guillemet autour du lien)
 
-**Exemple avec iframe :**
+**Exemple - Code Facebook :**
+```
+<iframe src="https://..." width="500" height="603"></iframe>
+```
+
+**Dans articles.json (remarquez les `\"`) :**
 ```json
 {
   "titre": "Notre dernier événement",
   "date": "2026-01-11",
   "source": "Facebook",
-  "lien": "<iframe src=\"https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02gX9...\" width=\"500\" height=\"603\"></iframe>"
+  "lien": "<iframe src=\"https://...\" width=\"500\" height=\"603\"></iframe>"
 }
 ```
 
-💡 **Le système extrait automatiquement l'URL** du code iframe, donc les deux méthodes fonctionnent parfaitement !
+⚠️ **TOUS les `"` dans l'iframe doivent être `\"`** sinon le JSON sera invalide !
+
+💡 **Astuce** : Utilisez un éditeur de texte avec "Rechercher & Remplacer" :
+- Rechercher : `"`
+- Remplacer par : `\"`
+- Puis remettre le premier et dernier guillemet normaux
 
 ---
 

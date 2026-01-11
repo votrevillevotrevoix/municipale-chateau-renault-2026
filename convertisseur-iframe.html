@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur Iframe Facebook → JSON</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #2c5f5d;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .step {
+            background: #f0f9f6;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #7fd1ae;
+        }
+
+        .step-title {
+            color: #2c5f5d;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #2c5f5d;
+            margin-bottom: 0.5rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #7fd1ae;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+
+        button {
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #6bc199;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            border: 2px solid #4caf50;
+        }
+
+        .result h3 {
+            color: #2c5f5d;
+            margin-bottom: 1rem;
+        }
+
+        .result pre {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .copy-btn {
+            background: #2c5f5d;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .copy-btn:hover {
+            background: #3d8b85;
+        }
+
+        .success {
+            background: #4caf50;
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+
+        .error {
+            background: #f44336;
+            color: white;
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Convertisseur Iframe Facebook</h1>
+        <p class="subtitle">Collez votre code Facebook, obtenez le JSON parfait !</p>
+
+        <div class="step">
+            <div class="step-title">📋 Étape 1 : Informations de l'article</div>
+            <label for="titre">Titre de l'article :</label>
+            <input type="text" id="titre" placeholder="Ex: Notre dernier événement">
+
+            <label for="date" style="margin-top: 1rem;">Date (AAAA-MM-JJ) :</label>
+            <input type="date" id="date">
+
+            <label for="source" style="margin-top: 1rem;">Source :</label>
+            <input type="text" id="source" value="Facebook" placeholder="Ex: Facebook, La Nouvelle République">
+
+            <label for="image" style="margin-top: 1rem;">Image (optionnel) :</label>
+            <input type="text" id="image" placeholder="Ex: images/mon-image.jpg">
+        </div>
+
+        <div class="step">
+            <div class="step-title">🌐 Étape 2 : Code iframe Facebook</div>
+            <label for="iframe">Collez tout le code iframe :</label>
+            <textarea id="iframe" placeholder="<iframe src=&quot;https://www.facebook.com/plugins/post.php..."></textarea>
+        </div>
+
+        <button onclick="convertir()">✨ Générer le JSON</button>
+
+        <div id="success" class="success">✅ JSON copié dans le presse-papiers !</div>
+        <div id="error" class="error">❌ Erreur : Vérifiez vos données</div>
+
+        <div id="result" style="display: none;" class="result">
+            <h3>📝 Votre bloc JSON :</h3>
+            <pre id="jsonOutput"></pre>
+            <button class="copy-btn" onclick="copierJSON()">📋 Copier le JSON</button>
+            <p style="margin-top: 1rem; color: #666; font-size: 0.9rem;">
+                💡 Collez ce bloc en haut de votre fichier <code>articles.json</code>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Mettre la date du jour par défaut
+        document.getElementById('date').valueAsDate = new Date();
+
+        function extraireURL(iframe) {
+            // Extraire l'URL du paramètre href
+            const match = iframe.match(/href=([^&"']+)/);
+            if (match && match[1]) {
+                // Décoder l'URL encodée
+                let url = decodeURIComponent(match[1]);
+                // Nettoyer l'URL (enlever les %3A, %2F, etc.)
+                url = url.replace(/%3A/g, ':').replace(/%2F/g, '/').replace(/%3F/g, '?').replace(/%3D/g, '=').replace(/%26/g, '&');
+                return url;
+            }
+            return null;
+        }
+
+        function convertir() {
+            const titre = document.getElementById('titre').value.trim();
+            const date = document.getElementById('date').value;
+            const source = document.getElementById('source').value.trim();
+            const image = document.getElementById('image').value.trim();
+            const iframe = document.getElementById('iframe').value.trim();
+
+            // Cacher les messages
+            document.getElementById('success').style.display = 'none';
+            document.getElementById('error').style.display = 'none';
+
+            // Validation
+            if (!titre || !date || !source || !iframe) {
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = '❌ Remplissez tous les champs obligatoires';
+                return;
+            }
+
+            // Extraire l'URL
+            const url = extraireURL(iframe);
+            if (!url) {
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('error').textContent = '❌ Impossible d\'extraire l\'URL de l\'iframe';
+                return;
+            }
+
+            // Créer l'objet JSON
+            const article = {
+                titre: titre,
+                date: date,
+                source: source,
+                lien: url
+            };
+
+            // Ajouter l'image si présente
+            if (image) {
+                article.image = image;
+            }
+
+            // Formater en JSON avec indentation
+            const jsonString = JSON.stringify(article, null, 2);
+
+            // Ajouter la virgule à la fin
+            const jsonWithComma = jsonString.replace(/\n}/g, '\n  },');
+
+            // Afficher le résultat
+            document.getElementById('jsonOutput').textContent = jsonWithComma;
+            document.getElementById('result').style.display = 'block';
+
+            // Copier automatiquement
+            copierJSON();
+        }
+
+        function copierJSON() {
+            const jsonText = document.getElementById('jsonOutput').textContent;
+            navigator.clipboard.writeText(jsonText).then(() => {
+                document.getElementById('success').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('success').style.display = 'none';
+                }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
