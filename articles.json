@@ -1,23 +1,21 @@
 [
-  
   {
-  "titre": "CHRONIQUES RENAUDINES",
-  "date": "2026-01-09",
-  "source": "Facebook",
-  "lien": "https://www.facebook.com/permalink.php?story_fbid=pfbid08KepssBEXBEupvTzJKhKqaXreCJoSFhdx3QbKM3pVbLMbZiMG5TRpXzFm632gkaJl&id=61584724443873"
+    "titre": "CHRONIQUES RENAUDINES",
+    "date": "2026-01-09",
+    "source": "Facebook",
+    "lien": "https://www.facebook.com/permalink.php?story_fbid=pfbid08KepssBEXBEupvTzJKhKqaXreCJoSFhdx3QbKM3pVbLMbZiMG5TRpXzFm632gkaJl&id=61584724443873"
   },
   {
-  "titre": "Un extrait de l'article de la Nouvelle République",
-  "date": "2026-01-09",
-  "source": "Facebook",
-  "lien": "https://www.facebook.com/permalink.php?story_fbid=pfbid0cyW7adLdgRdne4AyY7YZDYDpUgoDdgerTZUzidUqwh9kEJV6xxjxS6mTKrmbUwu2l&id=61584724443873"
+    "titre": "Un extrait de l'article de la Nouvelle République",
+    "date": "2026-01-09",
+    "source": "Facebook",
+    "lien": "https://www.facebook.com/permalink.php?story_fbid=pfbid0cyW7adLdgRdne4AyY7YZDYDpUgoDdgerTZUzidUqwh9kEJV6xxjxS6mTKrmbUwu2l&id=61584724443873"
   },
-{
-  "titre": "Ouverture de notre local de campagne",
-  "date": "2026-01-09",
-  "source": "Facebook",
-  "lien": "https://www.facebook.com/permalink.php?story_fbid=pfbid02rqHcga1XNTyjT9XLs3XtzUmftQHHwLJu3NaG682zcLStgdaRhYbqnPAdZGczr59nl&id=61584724443873",
-  "image": "/images/Local.jpg"
-  }  
- 
+  {
+    "titre": "Ouverture de notre local de campagne",
+    "date": "2026-01-09",
+    "source": "Facebook",
+    "lien": "https://www.facebook.com/permalink.php?story_fbid=pfbid02rqHcga1XNTyjT9XLs3XtzUmftQHHwLJu3NaG682zcLStgdaRhYbqnPAdZGczr59nl&id=61584724443873",
+    "image": "images/Local.jpg"
+  }
 ]
