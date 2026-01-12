@@ -60,6 +60,11 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav.nav-hidden {
+            transform: translateY(-100%);
         }
 
         nav ul {
@@ -1168,9 +1173,36 @@
         <p style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
             © 2025 Votre Ville, Votre Voix - Tous droits réservés
         </p>
+        <p style="font-size: 0.65rem; opacity: 0.6; margin-top: 0.5rem;">
+            Site réalisé par JCNJ avec l'aide de L'IA
+        </p>
     </footer>
 
     <script>
+        // Gestion du menu qui se cache au scroll
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        const scrollThreshold = 100; // Commence à cacher après 100px de scroll
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Si on est tout en haut de la page, toujours afficher le menu
+            if (scrollTop < scrollThreshold) {
+                nav.classList.remove('nav-hidden');
+            }
+            // Si on scrolle vers le bas et qu'on a dépassé le seuil
+            else if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                nav.classList.add('nav-hidden');
+            }
+            // Si on scrolle vers le haut
+            else if (scrollTop < lastScrollTop) {
+                nav.classList.remove('nav-hidden');
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
         // Fonction pour fermer la modale de vœux
         function closeVoeux() {
             const modal = document.getElementById('voeuxModal');
