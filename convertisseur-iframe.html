@@ -253,10 +253,10 @@
                 article.image = image;
             }
 
-            // Formater en JSON avec indentation
-            const jsonString = JSON.stringify(article, null, 2);
+            // Formater en JSON avec indentation de 4 espaces (comme dans articles.json)
+            const jsonString = JSON.stringify(article, null, 4);
 
-            // Ajouter la virgule à la fin
+            // Ajouter la virgule à la fin avec 2 espaces pour l'alignement
             const jsonWithComma = jsonString.replace(/\n}/g, '\n  },');
 
             // Afficher le résultat
