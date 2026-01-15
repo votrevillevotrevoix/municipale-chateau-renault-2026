@@ -862,9 +862,55 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Bouton retour en haut */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #7fd1ae;
+            color: #2c5f5d;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(127, 209, 174, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        #backToTop:hover {
+            background: #6bc199;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(127, 209, 174, 0.6);
+        }
+
+        #backToTop.show {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Bouton retour en haut -->
+    <button id="backToTop" title="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Modale carte de vœux -->
     <div id="voeuxModal" class="voeux-modal">
         <div class="voeux-content">
@@ -1201,6 +1247,26 @@
             }
 
             lastScrollTop = scrollTop;
+        });
+
+        // Gestion du bouton retour en haut
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            // Afficher le bouton après 300px de scroll
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Remonter en haut au clic
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
 
         // Fonction pour fermer la modale de vœux
