@@ -254,10 +254,13 @@
             }
 
             // Formater en JSON avec indentation de 4 espaces (comme dans articles.json)
-            const jsonString = JSON.stringify(article, null, 4);
+            let jsonString = JSON.stringify(article, null, 4);
 
-            // Ajouter la virgule à la fin avec 2 espaces pour l'alignement
-            const jsonWithComma = jsonString.replace(/\n}/g, '\n  },');
+            // Ajouter 2 espaces devant l'accolade ouvrante pour correspondre au format articles.json
+            jsonString = '  ' + jsonString.replace(/\n/g, '\n  ');
+
+            // Ajouter la virgule à la fin (déjà bien alignée maintenant)
+            const jsonWithComma = jsonString.replace(/\n  \}/g, '\n  },');
 
             // Afficher le résultat
             document.getElementById('jsonOutput').textContent = jsonWithComma;
