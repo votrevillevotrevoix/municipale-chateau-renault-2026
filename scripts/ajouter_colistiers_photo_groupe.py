@@ -15,7 +15,7 @@ def creer_photo_composite():
 
     # Chemins des images
     photo_groupe = "images/Groupe original.jpg"
-    portrait1 = "images/candidats/6 - Michael Boudmer.jpg"
+    portrait1 = "images/candidats/7 - Véronique Rigoreau.jpg"
     portrait2 = "images/candidats/10 - Jacky Tarenne.jpg"
     portrait3 = "images/candidats/17 - Claire Guery-Pottier.jpg"
     output_path = "images/Groupe original.jpg"  # Remplace la photo originale
@@ -92,7 +92,7 @@ def creer_photo_incrustee():
 
     # Chemins des images
     photo_groupe = "images/Groupe original.jpg"
-    portrait1 = "images/candidats/6 - Michael Boudmer.jpg"
+    portrait1 = "images/candidats/7 - Véronique Rigoreau.jpg"
     portrait2 = "images/candidats/10 - Jacky Tarenne.jpg"
     portrait3 = "images/candidats/17 - Claire Guery-Pottier.jpg"
     output_path = "images/Groupe original - avec colistiers.jpg"
