@@ -119,8 +119,8 @@ def creer_photo_incrustee():
     ]
 
     # Taille des portraits (à ajuster selon la perspective de la photo)
-    # Les personnes derrière sont plus petites, donc on réduit la taille
-    hauteur_portrait_cible = int(hauteur_groupe * 0.15)  # 15% de la hauteur
+    # Réduire davantage la taille pour une meilleure intégration
+    hauteur_portrait_cible = int(hauteur_groupe * 0.10)  # 10% de la hauteur (réduit)
 
     # Redimensionner les portraits
     portraits_redimensionnes = []
@@ -135,9 +135,9 @@ def creer_photo_incrustee():
     # Créer une copie de la photo de groupe pour y incruster les portraits
     composite = groupe.copy()
 
-    # Position où incruster les portraits (derrière la dernière rangée)
-    # À ajuster selon la photo - typiquement entre la 3ème et 4ème rangée
-    y_position = int(hauteur_groupe * 0.25)  # 25% depuis le haut
+    # Position où incruster les portraits (au niveau du dernier rang)
+    # Les placer plus bas, entre les têtes du dernier rang
+    y_position = int(hauteur_groupe * 0.45)  # 45% depuis le haut (au niveau des têtes du dernier rang)
 
     # Calculer les positions X (espacées régulièrement)
     largeur_totale_portraits = sum(p.width for p in portraits_redimensionnes) + 60
