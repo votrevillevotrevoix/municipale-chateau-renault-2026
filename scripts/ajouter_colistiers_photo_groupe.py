@@ -135,16 +135,16 @@ def creer_photo_incrustee():
     # Créer une copie de la photo de groupe pour y incruster les portraits
     composite = groupe.copy()
 
-    # Position où incruster les portraits (au même niveau que le dernier rang du bas)
-    # Les placer à la même hauteur que les personnes du dernier rang
-    y_position = int(hauteur_groupe * 0.50)  # 50% depuis le haut (même hauteur que le dernier rang)
+    # Position où incruster les portraits (au dernier rang du bas - premier plan)
+    # Les placer à la même hauteur que les personnes du dernier rang (bas de la photo)
+    y_position = int(hauteur_groupe * 0.72)  # 72% depuis le haut (dernier rang au premier plan)
 
-    # Positions X spécifiques dans les espaces vides (sans personne)
+    # Positions X spécifiques dans les espaces vides du dernier rang (bas)
     # Ajustées pour remplir les espaces vides du dernier rang
     positions_x = [
-        int(largeur_groupe * 0.15),  # Portrait 1 - espace vide à gauche
-        int(largeur_groupe * 0.42),  # Portrait 2 - espace vide au centre
-        int(largeur_groupe * 0.78)   # Portrait 3 - espace vide à droite
+        int(largeur_groupe * 0.08),  # Portrait 1 - espace vide à gauche
+        int(largeur_groupe * 0.85),  # Portrait 2 - espace vide à droite
+        int(largeur_groupe * 0.45)   # Portrait 3 - espace vide au centre
     ]
 
     # Coller les portraits avec détourage automatique
