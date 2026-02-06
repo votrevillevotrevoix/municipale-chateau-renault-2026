@@ -119,8 +119,8 @@ def creer_photo_incrustee():
     ]
 
     # Taille des portraits (à ajuster selon la perspective de la photo)
-    # Réduire davantage la taille pour une meilleure intégration
-    hauteur_portrait_cible = int(hauteur_groupe * 0.10)  # 10% de la hauteur (réduit)
+    # Réduire encore plus pour éviter de recouvrir les têtes existantes
+    hauteur_portrait_cible = int(hauteur_groupe * 0.08)  # 8% de la hauteur (très réduit)
 
     # Redimensionner les portraits
     portraits_redimensionnes = []
@@ -137,14 +137,17 @@ def creer_photo_incrustee():
 
     # Position où incruster les portraits (derrière le dernier rang du haut)
     # Les placer en haut, derrière le rang arrière
-    y_position = int(hauteur_groupe * 0.20)  # 20% depuis le haut (derrière le rang arrière)
+    y_position = int(hauteur_groupe * 0.18)  # 18% depuis le haut (derrière le rang arrière)
 
-    # Calculer les positions X (espacées régulièrement)
-    largeur_totale_portraits = sum(p.width for p in portraits_redimensionnes) + 60
-    x_depart = (largeur_groupe - largeur_totale_portraits) // 2
+    # Positions X spécifiques pour chaque portrait dans les espaces libres
+    # Ajustées manuellement pour éviter de recouvrir les têtes existantes
+    positions_x = [
+        int(largeur_groupe * 0.22),  # Portrait 1 - à gauche
+        int(largeur_groupe * 0.50),  # Portrait 2 - au centre
+        int(largeur_groupe * 0.72)   # Portrait 3 - à droite
+    ]
 
     # Coller les portraits avec détourage automatique
-    x_courant = x_depart
     for i, portrait in enumerate(portraits_redimensionnes):
         # Détourer automatiquement le portrait en détectant le fond
         portrait_rgba = portrait.convert('RGBA')
@@ -178,10 +181,10 @@ def creer_photo_incrustee():
         # Appliquer un flou gaussien pour adoucir les bords
         mask = mask.filter(ImageFilter.GaussianBlur(5))
 
-        # Coller le portrait avec le masque
-        composite.paste(portrait, (x_courant, y_position), mask)
-        x_courant += portrait.width + 30
-        print(f"  Portrait {i+1} incrusté à x={x_courant - portrait.width - 30}, y={y_position}")
+        # Coller le portrait avec le masque à la position définie
+        x_position = positions_x[i]
+        composite.paste(portrait, (x_position, y_position), mask)
+        print(f"  Portrait {i+1} incrusté à x={x_position}, y={y_position}")
 
     # Sauvegarder le résultat
     print(f"Sauvegarde de la photo composite: {output_path}")
