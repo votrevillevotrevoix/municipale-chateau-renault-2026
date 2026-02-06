@@ -119,8 +119,8 @@ def creer_photo_incrustee():
     ]
 
     # Taille des portraits (à ajuster selon la perspective de la photo)
-    # Même taille que les personnes du dernier rang pour une intégration naturelle
-    hauteur_portrait_cible = int(hauteur_groupe * 0.12)  # 12% de la hauteur (taille des personnes du dernier rang)
+    # Plus petits car le rang arrière est en arrière-plan
+    hauteur_portrait_cible = int(hauteur_groupe * 0.09)  # 9% de la hauteur (taille réduite pour le rang arrière)
 
     # Redimensionner les portraits
     portraits_redimensionnes = []
@@ -135,16 +135,16 @@ def creer_photo_incrustee():
     # Créer une copie de la photo de groupe pour y incruster les portraits
     composite = groupe.copy()
 
-    # Position où incruster les portraits (au dernier rang du bas - premier plan)
-    # Les placer à la même hauteur que les personnes du dernier rang (bas de la photo)
-    y_position = int(hauteur_groupe * 0.72)  # 72% depuis le haut (dernier rang au premier plan)
+    # Position où incruster les portraits (EN HAUT, derrière le rang arrière)
+    # Les placer au niveau du rang arrière, dans les espaces entre les têtes
+    y_position = int(hauteur_groupe * 0.23)  # 23% depuis le haut (au niveau du rang arrière en haut)
 
-    # Positions X spécifiques dans les espaces vides du dernier rang (bas)
-    # Ajustées pour remplir les espaces vides du dernier rang
+    # Positions X spécifiques dans les espaces vides entre les têtes du rang arrière
+    # Ajustées pour remplir les espaces entre les personnes du rang arrière
     positions_x = [
-        int(largeur_groupe * 0.08),  # Portrait 1 - espace vide à gauche
-        int(largeur_groupe * 0.85),  # Portrait 2 - espace vide à droite
-        int(largeur_groupe * 0.45)   # Portrait 3 - espace vide au centre
+        int(largeur_groupe * 0.18),  # Portrait 1 - espace entre têtes à gauche
+        int(largeur_groupe * 0.50),  # Portrait 2 - espace entre têtes au centre
+        int(largeur_groupe * 0.70)   # Portrait 3 - espace entre têtes à droite
     ]
 
     # Coller les portraits avec détourage automatique
