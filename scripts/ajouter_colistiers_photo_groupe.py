@@ -139,12 +139,12 @@ def creer_photo_incrustee():
     # Les placer en haut, derrière le rang arrière
     y_position = int(hauteur_groupe * 0.18)  # 18% depuis le haut (derrière le rang arrière)
 
-    # Positions X spécifiques pour chaque portrait dans les espaces libres
-    # Ajustées manuellement pour éviter de recouvrir les têtes existantes
+    # Positions X spécifiques pour chaque portrait entre les têtes du dernier rang
+    # Ajustées pour positionner entre deux personnes du rang arrière
     positions_x = [
-        int(largeur_groupe * 0.22),  # Portrait 1 - à gauche
-        int(largeur_groupe * 0.50),  # Portrait 2 - au centre
-        int(largeur_groupe * 0.72)   # Portrait 3 - à droite
+        int(largeur_groupe * 0.28),  # Portrait 1 - entre 1ère et 2ème personne du rang arrière
+        int(largeur_groupe * 0.48),  # Portrait 2 - entre 2ème et 3ème personne du rang arrière
+        int(largeur_groupe * 0.65)   # Portrait 3 - entre 3ème et 4ème personne du rang arrière
     ]
 
     # Coller les portraits avec détourage automatique
