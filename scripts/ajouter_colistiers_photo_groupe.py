@@ -107,15 +107,15 @@ def creer_photo_incrustee():
 
     # Charger la photo de groupe
     print(f"Chargement de la photo de groupe: {photo_groupe}")
-    groupe = Image.open(photo_groupe).convert('RGBA')
+    groupe = Image.open(photo_groupe).convert('RGB')
     largeur_groupe, hauteur_groupe = groupe.size
 
     # Charger les trois portraits
     print(f"Chargement des portraits individuels...")
     portraits = [
-        Image.open(portrait1).convert('RGBA'),
-        Image.open(portrait2).convert('RGBA'),
-        Image.open(portrait3).convert('RGBA')
+        Image.open(portrait1).convert('RGB'),
+        Image.open(portrait2).convert('RGB'),
+        Image.open(portrait3).convert('RGB')
     ]
 
     # Taille des portraits (à ajuster selon la perspective de la photo)
@@ -143,22 +143,45 @@ def creer_photo_incrustee():
     largeur_totale_portraits = sum(p.width for p in portraits_redimensionnes) + 60
     x_depart = (largeur_groupe - largeur_totale_portraits) // 2
 
-    # Coller les portraits avec un effet de transparence/ombre pour l'intégration
+    # Coller les portraits avec détourage automatique
     x_courant = x_depart
     for i, portrait in enumerate(portraits_redimensionnes):
-        # Créer un masque circulaire pour le portrait (effet tête)
+        # Détourer automatiquement le portrait en détectant le fond
+        portrait_rgba = portrait.convert('RGBA')
+        pixels = portrait_rgba.load()
+
+        # Détecter la couleur du fond (coin supérieur gauche généralement)
+        bg_color = portrait.getpixel((10, 10))
+        threshold = 40  # Tolérance pour la détection du fond
+
+        # Créer un masque basé sur la différence avec la couleur de fond
         mask = Image.new('L', (portrait.width, portrait.height), 0)
-        draw = ImageDraw.Draw(mask)
-        draw.ellipse((5, 5, portrait.width-5, portrait.height-5), fill=255)
-        mask = mask.filter(ImageFilter.GaussianBlur(2))
+        mask_pixels = mask.load()
+
+        for y in range(portrait.height):
+            for x in range(portrait.width):
+                pixel = portrait.getpixel((x, y))
+                # Calculer la différence avec la couleur de fond
+                diff = sum(abs(pixel[c] - bg_color[c]) for c in range(3))
+
+                if diff > threshold:
+                    # C'est le sujet, pas le fond
+                    mask_pixels[x, y] = 255
+                else:
+                    # C'est le fond, rendre transparent
+                    mask_pixels[x, y] = 0
+
+        # Appliquer une érosion puis une dilatation pour nettoyer le masque
+        mask = mask.filter(ImageFilter.MinFilter(3))  # Érosion
+        mask = mask.filter(ImageFilter.MaxFilter(3))  # Dilatation
+
+        # Appliquer un flou gaussien pour adoucir les bords
+        mask = mask.filter(ImageFilter.GaussianBlur(5))
 
         # Coller le portrait avec le masque
         composite.paste(portrait, (x_courant, y_position), mask)
         x_courant += portrait.width + 30
         print(f"  Portrait {i+1} incrusté à x={x_courant - portrait.width - 30}, y={y_position}")
-
-    # Convertir en RGB pour la sauvegarde
-    composite = composite.convert('RGB')
 
     # Sauvegarder le résultat
     print(f"Sauvegarde de la photo composite: {output_path}")
