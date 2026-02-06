@@ -14,11 +14,11 @@ def creer_photo_composite():
     """
 
     # Chemins des images
-    photo_groupe = "images/photo-groupe-original.jpg"
-    portrait1 = "images/candidats/portrait-1.jpg"  # À remplacer par le bon nom
-    portrait2 = "images/candidats/portrait-2.jpg"  # À remplacer par le bon nom
-    portrait3 = "images/candidats/portrait-3.jpg"  # À remplacer par le bon nom
-    output_path = "images/photo-groupe-complete.jpg"
+    photo_groupe = "images/Groupe original.jpg"
+    portrait1 = "images/candidats/6 - Michael Boudmer.jpg"
+    portrait2 = "images/candidats/10 - Jacky Tarenne.jpg"
+    portrait3 = "images/candidats/17 - Claire Guery-Pottier.jpg"
+    output_path = "images/Groupe original.jpg"  # Remplace la photo originale
 
     # Vérifier que tous les fichiers existent
     fichiers = [photo_groupe, portrait1, portrait2, portrait3]
@@ -91,11 +91,11 @@ def creer_photo_incrustee():
     """
 
     # Chemins des images
-    photo_groupe = "images/photo-groupe-original.jpg"
-    portrait1 = "images/candidats/16 - Salim Messaoudi.jpg"  # À confirmer
-    portrait2 = "images/candidats/18 - Michel Rouzier.jpg"   # À confirmer
-    portrait3 = "images/candidats/25 - Catherine Durand.jpg"  # À confirmer
-    output_path = "images/photo-groupe-complete.jpg"
+    photo_groupe = "images/Groupe original.jpg"
+    portrait1 = "images/candidats/6 - Michael Boudmer.jpg"
+    portrait2 = "images/candidats/10 - Jacky Tarenne.jpg"
+    portrait3 = "images/candidats/17 - Claire Guery-Pottier.jpg"
+    output_path = "images/Groupe original - avec colistiers.jpg"
 
     # Vérifier que tous les fichiers existent
     fichiers = [photo_groupe, portrait1, portrait2, portrait3]
