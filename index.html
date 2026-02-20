@@ -919,11 +919,38 @@
             box-shadow: 0 3px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s, box-shadow 0.3s;
             border: 3px solid #7fd1ae;
+            position: relative;
         }
 
         .candidat-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+
+        .candidat-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 95, 93, 0.93);
+            color: white;
+            padding: 1.1rem;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.76rem;
+            line-height: 1.55;
+            text-align: center;
+            scrollbar-width: thin;
+            scrollbar-color: #7fd1ae transparent;
+        }
+
+        .candidat-card:hover .candidat-overlay {
+            opacity: 1;
         }
 
         .candidat-photo {
@@ -1305,6 +1332,7 @@
                 <div class="trombinoscope-grid">
                     <div class="candidat-card">
                         <img src="images/candidats/1 - Brigitte Vengeon.jpg" alt="Brigitte Vengeon" class="candidat-photo">
+                        <div class="candidat-overlay">J'ai été recrutée par Jean Delaneau pour diriger le service Culture et Communication de la Mairie de Château-Renault pendant 13 ans. J'ai été élue adjointe au Maire et déléguée communautaire de 2014 à 2020. Après une longue carrière de cadre dans la fonction publique territoriale à Notre-Dame-d'Oé et à Tours Métropole, j'exerce actuellement le métier de Conseillère en Immobilier à Château-Renault.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Brigitte Vengeon</div>
                             <div class="candidat-profession">Conseillère Immobilier</div>
@@ -1314,6 +1342,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/2 - Serge Pottier.jpg" alt="Serge Pottier" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 40 ans, où j'ai construit ma vie et élevé mes enfants. Ancien conseiller municipal pendant 12 ans, je m'engage aux côtés de Brigitte Vengeon pour un projet qui place les habitants au cœur des décisions et préserve durablement notre cadre de vie.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Serge Pottier</div>
                             <div class="candidat-profession">Acheteur Logistique</div>
@@ -1323,6 +1352,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/3 - Nelly Penon.jpg" alt="Nelly Penon" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis janvier 1980. Je me suis engagée aux côtés de Brigitte Vengeon par confiance, car elle incarne pour moi l'honnêteté et l'amour du service public. Ce que j'aime à Château-Renault, c'est la gentillesse des habitants et la qualité de son patrimoine.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Nelly Penon</div>
                             <div class="candidat-profession">Retraitée Auto École</div>
@@ -1332,6 +1362,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/4 - Camel Assassi.jpg" alt="Camel Assassi" class="candidat-photo">
+                        <div class="candidat-overlay">Natif de Château-Renault, marié et père de deux enfants, mon attachement à ma commune et à ses habitants m'a naturellement conduit à m'engager. Je rejoins l'équipe de Brigitte Vengeon pour un projet sincère et juste, porté par une équipe enthousiaste et motivée.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Camel Assassi</div>
                             <div class="candidat-profession">Fonctionnaire Territorial</div>
@@ -1341,6 +1372,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/5 - Brigitte Dousset.jpg" alt="Brigitte Dousset" class="candidat-photo">
+                        <div class="candidat-overlay">Après plusieurs années d'engagement comme élue locale, je vis aujourd'hui à Château-Renault, une ville que je découvre et que j'apprécie. Je m'engage aux côtés de Brigitte Vengeon pour transmettre mon expérience et contribuer au projet d'une équipe engagée.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Brigitte Dousset</div>
                             <div class="candidat-profession">Retraitée Banque</div>
@@ -1350,6 +1382,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/6 - Michael Boudmer.jpg" alt="Michael Boudmer" class="candidat-photo">
+                        <div class="candidat-overlay">Installé à Château-Renault depuis 2020, je travaille dans le domaine de la parentalité et de la jeunesse. Engagé depuis longtemps dans la vie associative et municipale, je m'engage aux côtés de Brigitte Vengeon pour agir dans l'intérêt collectif et renforcer les valeurs humaines.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Michael Boudmer</div>
                             <div class="candidat-profession">Conseiller Technique</div>
@@ -1359,6 +1392,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/7 - Véronique Rigoreau.jpg" alt="Véronique Rigoreau" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis toujours et je suis assistante médicale. J'aime ma ville pour ses lieux atypiques, son château et ses tanneries. Je m'engage aux côtés de Brigitte Vengeon pour une ville plus humaine et solidaire.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Véronique Rigoreau</div>
                             <div class="candidat-profession">Assistante Médicale</div>
@@ -1368,6 +1402,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/8 - François Deniau.jpg" alt="François Deniau" class="candidat-photo">
+                        <div class="candidat-overlay">Originaire de Château-Renault et petit-fils de tanneur, je suis profondément attaché à l'histoire de notre ville. Je m'engage aux côtés de Brigitte Vengeon pour défendre notre patrimoine et rendre Château-Renault plus verte et plus agréable à vivre.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">François Deniau</div>
                             <div class="candidat-profession">Agent de Service</div>
@@ -1377,6 +1412,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/9 - Maryse Pohu.jpg" alt="Maryse Pohu" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 1962, où j'ai grandi et fondé ma famille. Très attachée à l'histoire et à l'identité de la ville, je m'engage aux côtés de Brigitte Vengeon pour une commune fidèle à ses valeurs et tournée vers l'avenir.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Maryse Pohu</div>
                             <div class="candidat-profession">Retraitée Fonction Territoriale</div>
@@ -1386,6 +1422,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/10 - Jacky Tarenne.jpg" alt="Jacky Tarenne" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis trois ans et je suis retraité de l'Éducation nationale, après avoir enseigné pendant 34 ans. Très investi dans la vie associative depuis plus de 40 ans, je m'engage aux côtés de Brigitte Vengeon pour ne plus être simple spectateur et mettre mes compétences au service de la commune.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Jacky Tarenne</div>
                             <div class="candidat-profession">Retraité Enseignant</div>
@@ -1395,6 +1432,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/11 - Pascale Roze.jpg" alt="Pascale Roze" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 10 ans, près de la place Jean Jaurès, et je suis artiste de formation. Très investie dans la vie associative et culturelle, notamment autour du cinéma, je m'engage aux côtés de Brigitte Vengeon pour une ville vivante, humaine et attachée à sa culture.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Pascale Roze</div>
                             <div class="candidat-profession">Retraitée Artiste</div>
@@ -1404,6 +1442,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/12 - Laurent Jousseau.jpg" alt="Laurent Jousseau" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault et je travaille dans le transport et la logistique. Attaché à la tranquillité et à l'équilibre de notre ville, je m'engage aux côtés de Brigitte Vengeon pour retrouver une sérénité financière et morale et replacer l'humain au cœur des décisions.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Laurent Jousseau</div>
                             <div class="candidat-profession">Agent de Maîtrise</div>
@@ -1413,6 +1452,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/13 - Nadia Dridi.jpg" alt="Nadia Dridi" class="candidat-photo">
+                        <div class="candidat-overlay">Originaire de Château-Renault, je suis revenue y vivre il y a trois ans. Je travaille comme manager opérationnelle et je souhaite m'investir pleinement pour la commune. Je m'engage aux côtés de Brigitte Vengeon pour une action municipale proche des citoyens, transparente et tournée vers l'avenir.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Nadia Dridi</div>
                             <div class="candidat-profession">Manager Opérationnel</div>
@@ -1422,6 +1462,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/14 - Emmanuel Roullet.jpg" alt="Emmanuel Roullet" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 2007 et je travaille dans le logement social. Attaché à la démocratie participative et à une écologie pragmatique, je m'engage aux côtés de Brigitte Vengeon pour améliorer concrètement la vie quotidienne et l'équilibre de notre commune.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Emmanuel Roullet</div>
                             <div class="candidat-profession">Chargé d'Études</div>
@@ -1431,6 +1472,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/15 - Gaëlle Poupin.jpg" alt="Gaëlle Poupin" class="candidat-photo">
+                        <div class="candidat-overlay">J'ai grandi à Château-Renault et j'y suis revenue il y a 10 ans avec mes trois enfants. Très investie dans la vie associative, je m'engage aux côtés de Brigitte Vengeon pour donner la parole aux citoyens et améliorer la vie quotidienne des familles.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Gaëlle Poupin</div>
                             <div class="candidat-profession">Aide Soignante</div>
@@ -1440,6 +1482,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/16 - Salim Messaoudi.jpg" alt="Salim Messaoudi" class="candidat-photo">
+                        <div class="candidat-overlay">Né à Château-Renault, je travaille dans le bâtiment et je suis président d'une association sportive. Le sport est pour moi un formidable outil de lien et de rassemblement. Je m'engage aux côtés de Brigitte Vengeon pour une ville bien gérée, à l'écoute des habitants et de la jeunesse.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Salim Messaoudi</div>
                             <div class="candidat-profession">Coordinateur Travaux</div>
@@ -1449,6 +1492,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/17 - Claire Guery-Pottier.jpg" alt="Claire Guery-Pottier" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 40 ans et je travaille dans la logistique. J'aspire à une ville où l'on partage, où l'on participe et où les projets se construisent ensemble. Je m'engage aux côtés de Brigitte Vengeon pour une ville dynamique et humaine.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Claire Guery-Pottier</div>
                             <div class="candidat-profession">Agent Logistique Export</div>
@@ -1458,6 +1502,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/18 - Michel Rouzier.jpg" alt="Michel Rouzier" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 30 ans et je suis retraité. Je garde de bons souvenirs des animations de quartier d'autrefois. Je m'engage aux côtés de Brigitte Vengeon pour recréer des moments de rencontre, renforcer le lien entre les générations et le vivre-ensemble.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Michel Rouzier</div>
                             <div class="candidat-profession">Retraité Métallurgiste</div>
@@ -1467,6 +1512,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/19 - Catherine Martin.jpg" alt="Catherine Martin" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 15 ans et je suis retraitée de l'Éducation nationale. J'apprécie particulièrement les espaces verts et les possibilités de randonnée. Je m'engage aux côtés de Brigitte Vengeon pour une ville plus juste, respectueuse de l'environnement et attentive aux habitants.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Catherine Martin</div>
                             <div class="candidat-profession">Retraitée Enseignante</div>
@@ -1476,6 +1522,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/20 - Yann Bourgeois.jpg" alt="Yann Bourgeois" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis un peu plus de dix ans. Après une première vie professionnelle, je travaille aujourd'hui dans l'accompagnement des personnes en tant que sophrologue. Je m'engage aux côtés de Brigitte Vengeon pour œuvrer pour le bien commun, construire un avenir plus égalitaire et placer le social et l'humain au cœur de l'action municipale, dans une démarche indépendante de tout parti politique.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Yann Bourgeois</div>
                             <div class="candidat-profession">Sophrologue</div>
@@ -1485,6 +1532,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/21 - Stéphanie Metais.jpg" alt="Stéphanie Metais" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault et je suis en reconversion professionnelle. Très investie dans la vie associative et bénévole, notamment à Emmaüs, je m'engage aux côtés de Brigitte Vengeon pour être à l'écoute des habitants, soutenir les associations et redonner vie à notre ville.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Stéphanie Metais</div>
                             <div class="candidat-profession">Recherche d'Emploi</div>
@@ -1494,6 +1542,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/22 - Lahouarie Laguel.jpg" alt="Lahouarie Laguel" class="candidat-photo">
+                        <div class="candidat-overlay">Présent à Château-Renault depuis 1983, j'y ai construit ma vie familiale et professionnelle. Très attaché à notre ville et à son identité, je m'engage aux côtés de Brigitte Vengeon pour un projet qui place les habitants au cœur des décisions et respecte notre cadre de vie.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Lahouarie Laguel</div>
                             <div class="candidat-profession">Technicien d'Atelier</div>
@@ -1503,6 +1552,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/23 - Catherine Chenaye.jpg" alt="Catherine Chenaye" class="candidat-photo">
+                        <div class="candidat-overlay">Retraitée après avoir travaillé comme agente de production en blanchisserie chez Elis à Montlouis-sur-Loire, j'ai choisi de m'engager aux côtés de Brigitte Vengeon et de son équipe pour contribuer à un changement positif et participer à l'avenir de notre ville.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Catherine Chenaye</div>
                             <div class="candidat-profession">Retraitée</div>
@@ -1512,6 +1562,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/24 - Eric Chanal.jpg" alt="Eric Chanal" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis plus de 30 ans et je suis retraité de la fonction publique. Très attaché au service public et à la culture, je m'engage aux côtés de Brigitte Vengeon pour remettre l'humain au cœur du projet municipal et préserver ce qui fait l'âme de notre ville.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Eric Chanal</div>
                             <div class="candidat-profession">Retraité Fonction Territoriale</div>
@@ -1521,6 +1572,7 @@
 
                     <div class="candidat-card">
                         <img src="images/candidats/25 - Catherine Durand.jpg" alt="Catherine Durand" class="candidat-photo">
+                        <div class="candidat-overlay">Arrivée à Château-Renault en 1996 dans le cadre d'une délocalisation professionnelle avec l'entreprise Standard Forms, je suis aujourd'hui à la retraite. Attachée à la vie associative et à la taille humaine de notre ville, je me suis engagée aux côtés de Brigitte Vengeon pour retrouver une ville plus heureuse, où les associations rassemblent, et pour contribuer à réinstaller un équilibre durable.</div>
                         <div class="candidat-info">
                             <div class="candidat-nom">Catherine Durand</div>
                             <div class="candidat-profession">Retraitée Comptabilité</div>
