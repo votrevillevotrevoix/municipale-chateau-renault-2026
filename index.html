@@ -949,7 +949,8 @@
             scrollbar-color: #7fd1ae transparent;
         }
 
-        .candidat-card:hover .candidat-overlay {
+        .candidat-card:hover .candidat-overlay,
+        .candidat-card.overlay-visible .candidat-overlay {
             opacity: 1;
         }
 
@@ -2017,6 +2018,34 @@
 
         // Exécuter au chargement de la page
         window.addEventListener('load', afficherProgrammeEtEquipe);
+
+        // Support tactile pour les overlays des candidats (mobile/tablette)
+        document.querySelectorAll('.candidat-card').forEach(function(card) {
+            if (!card.querySelector('.candidat-overlay')) return;
+
+            card.addEventListener('click', function(e) {
+                const isAlreadyOpen = card.classList.contains('overlay-visible');
+
+                // Fermer tous les overlays ouverts
+                document.querySelectorAll('.candidat-card.overlay-visible').forEach(function(c) {
+                    c.classList.remove('overlay-visible');
+                });
+
+                // Si la carte n'était pas déjà ouverte, l'ouvrir
+                if (!isAlreadyOpen) {
+                    card.classList.add('overlay-visible');
+                }
+
+                e.stopPropagation();
+            });
+        });
+
+        // Fermer les overlays en touchant/cliquant en dehors
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.candidat-card.overlay-visible').forEach(function(c) {
+                c.classList.remove('overlay-visible');
+            });
+        });
     </script>
 </body>
 </html>
