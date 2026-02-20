@@ -1785,6 +1785,15 @@
     </footer>
 
     <script>
+        // Forcer le scroll en haut de page au chargement
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        window.scrollTo(0, 0);
+
         // Gestion du menu qui se cache au scroll
         let lastScrollTop = 0;
         const nav = document.querySelector('nav');
