@@ -1787,7 +1787,7 @@
             Site réalisé par JCNJ avec l'aide de L'IA
         </p>
         <p id="visitor-counter" style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; color: #3D8B85;">
-            <span id="visitor-count">•••</span> visiteurs
+            <span id="visitor-count">---</span> visiteurs
         </p>
     </footer>
 
@@ -2072,25 +2072,5 @@
         });
     </script>
 
-    <!-- Script du compteur de visiteurs -->
-    <script>
-        // Compteur de visiteurs utilisant api.counter.dev
-        fetch('https://api.counter.dev/hit/municipale-chateau-renault-2026.fr/visits')
-            .then(response => response.json())
-            .then(data => {
-                const visitorCount = document.getElementById('visitor-count');
-                // api.counter.dev renvoie un objet avec la propriété count
-                if (visitorCount && data.count) {
-                    visitorCount.textContent = data.count.toLocaleString('fr-FR');
-                }
-            })
-            .catch(error => {
-                console.log('Compteur de visiteurs non disponible:', error);
-                const visitorCount = document.getElementById('visitor-count');
-                if (visitorCount) {
-                    visitorCount.textContent = '---';
-                }
-            });
-    </script>
 </body>
 </html>
