@@ -2074,17 +2074,18 @@
 
     <!-- Script du compteur de visiteurs -->
     <script>
-        // Compteur de visiteurs utilisant CountAPI
-        fetch('https://api.countapi.xyz/hit/municipale-chateau-renault-2026.fr/visits')
+        // Compteur de visiteurs utilisant api.counter.dev
+        fetch('https://api.counter.dev/hit/municipale-chateau-renault-2026.fr/visits')
             .then(response => response.json())
             .then(data => {
                 const visitorCount = document.getElementById('visitor-count');
-                if (visitorCount && data.value) {
-                    visitorCount.textContent = data.value.toLocaleString('fr-FR');
+                // api.counter.dev renvoie un objet avec la propriété count
+                if (visitorCount && data.count) {
+                    visitorCount.textContent = data.count.toLocaleString('fr-FR');
                 }
             })
             .catch(error => {
-                console.log('Compteur de visiteurs non disponible');
+                console.log('Compteur de visiteurs non disponible:', error);
                 const visitorCount = document.getElementById('visitor-count');
                 if (visitorCount) {
                     visitorCount.textContent = '---';
