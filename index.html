@@ -1786,8 +1786,8 @@
         <p style="font-size: 0.65rem; opacity: 0.6; margin-top: 0.5rem;">
             Site réalisé par JCNJ avec l'aide de L'IA
         </p>
-        <p style="margin-top: 1rem;">
-            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fmunicipale-chateau-renault-2026.fr&count_bg=%233D8B85&title_bg=%232C5F5D&icon=&icon_color=%23E7E7E7&title=Visiteurs&edge_flat=false" alt="Compteur de visiteurs"/>
+        <p id="visitor-counter" style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; color: #3D8B85;">
+            <span id="visitor-count">•••</span> visiteurs
         </p>
     </footer>
 
@@ -2070,6 +2070,26 @@
                 c.classList.remove('overlay-visible');
             });
         });
+    </script>
+
+    <!-- Script du compteur de visiteurs -->
+    <script>
+        // Compteur de visiteurs utilisant CountAPI
+        fetch('https://api.countapi.xyz/hit/municipale-chateau-renault-2026.fr/visits')
+            .then(response => response.json())
+            .then(data => {
+                const visitorCount = document.getElementById('visitor-count');
+                if (visitorCount && data.value) {
+                    visitorCount.textContent = data.value.toLocaleString('fr-FR');
+                }
+            })
+            .catch(error => {
+                console.log('Compteur de visiteurs non disponible');
+                const visitorCount = document.getElementById('visitor-count');
+                if (visitorCount) {
+                    visitorCount.textContent = '---';
+                }
+            });
     </script>
 </body>
 </html>
