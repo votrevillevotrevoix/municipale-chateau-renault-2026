@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quiz interactif - Suivez-vous notre campagne ? Votre Ville, Votre Voix">
+    <title>Quiz : Suivez-vous notre campagne ? - Votre Ville, Votre Voix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #2c5f5d;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .slogan {
+            font-size: 1.2rem;
+            color: #7fd1ae;
+            font-weight: bold;
+        }
+
+        .quiz-content {
+            padding: 2rem;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-image {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            margin-bottom: 2rem;
+        }
+
+        .questions-container {
+            margin: 2rem 0;
+        }
+
+        .question {
+            background: #f0f9f6;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #7fd1ae;
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #2c5f5d;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #7fd1ae;
+        }
+
+        .checkbox-option label {
+            cursor: pointer;
+            color: #2c5f5d;
+            font-weight: 600;
+            display: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .nav-button {
+            background: #7fd1ae;
+            color: #2c5f5d;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-button:hover {
+            background: #6bc199;
+            transform: translateY(-2px);
+        }
+
+        .nav-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress {
+            text-align: center;
+            color: #2c5f5d;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .result-container.active {
+            display: block;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            color: #7fd1ae;
+            font-weight: bold;
+            margin: 2rem 0;
+        }
+
+        .result-message {
+            font-size: 1.3rem;
+            color: #2c5f5d;
+            margin: 2rem 0;
+            line-height: 1.6;
+        }
+
+        .result-image {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+            font-size: 5rem;
+        }
+
+        .restart-button {
+            background: #2c5f5d;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 2rem;
+        }
+
+        .restart-button:hover {
+            background: #3d8b85;
+            transform: translateY(-2px);
+        }
+
+        .back-to-site {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #7fd1ae;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .back-to-site:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .quiz-content {
+                padding: 1rem;
+            }
+
+            .nav-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .progress {
+                order: -1;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Suivez-vous notre campagne ?</h1>
+            <div class="slogan">L'avenir c'est vous</div>
+        </div>
+
+        <div class="quiz-content">
+            <!-- Diapo 1 : Présentation (0 question) -->
+            <div class="slide active" data-slide="1" data-questions="0">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Présentation.png" alt="Présentation du quiz" class="slide-image">
+            </div>
+
+            <!-- Diapo 2 : 2 questions -->
+            <div class="slide" data-slide="2" data-questions="2">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-1-du-12-au-18-Janvier.png" alt="Semaine 1" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 1</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q1_fait" name="q1" value="fait" onchange="handleCheckbox(this, 'q1')">
+                                <label for="q1_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q1_pasfait" name="q1" value="pasfait" onchange="handleCheckbox(this, 'q1')">
+                                <label for="q1_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 2</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q2_fait" name="q2" value="fait" onchange="handleCheckbox(this, 'q2')">
+                                <label for="q2_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q2_pasfait" name="q2" value="pasfait" onchange="handleCheckbox(this, 'q2')">
+                                <label for="q2_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 3 : 2 questions -->
+            <div class="slide" data-slide="3" data-questions="2">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-2-du-19-au-25-Janvier.png" alt="Semaine 2" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 3</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q3_fait" name="q3" value="fait" onchange="handleCheckbox(this, 'q3')">
+                                <label for="q3_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q3_pasfait" name="q3" value="pasfait" onchange="handleCheckbox(this, 'q3')">
+                                <label for="q3_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 4</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q4_fait" name="q4" value="fait" onchange="handleCheckbox(this, 'q4')">
+                                <label for="q4_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q4_pasfait" name="q4" value="pasfait" onchange="handleCheckbox(this, 'q4')">
+                                <label for="q4_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 4 : 3 questions -->
+            <div class="slide" data-slide="4" data-questions="3">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-3-du-26-Janvier-au-1er-Février.png" alt="Semaine 3" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 5</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q5_fait" name="q5" value="fait" onchange="handleCheckbox(this, 'q5')">
+                                <label for="q5_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q5_pasfait" name="q5" value="pasfait" onchange="handleCheckbox(this, 'q5')">
+                                <label for="q5_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 6</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q6_fait" name="q6" value="fait" onchange="handleCheckbox(this, 'q6')">
+                                <label for="q6_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q6_pasfait" name="q6" value="pasfait" onchange="handleCheckbox(this, 'q6')">
+                                <label for="q6_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 7</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q7_fait" name="q7" value="fait" onchange="handleCheckbox(this, 'q7')">
+                                <label for="q7_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q7_pasfait" name="q7" value="pasfait" onchange="handleCheckbox(this, 'q7')">
+                                <label for="q7_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 5 : 3 questions -->
+            <div class="slide" data-slide="5" data-questions="3">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-4-du-2-au-8-Février.png" alt="Semaine 4" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 8</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q8_fait" name="q8" value="fait" onchange="handleCheckbox(this, 'q8')">
+                                <label for="q8_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q8_pasfait" name="q8" value="pasfait" onchange="handleCheckbox(this, 'q8')">
+                                <label for="q8_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 9</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q9_fait" name="q9" value="fait" onchange="handleCheckbox(this, 'q9')">
+                                <label for="q9_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q9_pasfait" name="q9" value="pasfait" onchange="handleCheckbox(this, 'q9')">
+                                <label for="q9_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 10</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q10_fait" name="q10" value="fait" onchange="handleCheckbox(this, 'q10')">
+                                <label for="q10_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q10_pasfait" name="q10" value="pasfait" onchange="handleCheckbox(this, 'q10')">
+                                <label for="q10_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 6 : 3 questions -->
+            <div class="slide" data-slide="6" data-questions="3">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-5-du-9-au-15-Février.png" alt="Semaine 5" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 11</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q11_fait" name="q11" value="fait" onchange="handleCheckbox(this, 'q11')">
+                                <label for="q11_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q11_pasfait" name="q11" value="pasfait" onchange="handleCheckbox(this, 'q11')">
+                                <label for="q11_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 12</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q12_fait" name="q12" value="fait" onchange="handleCheckbox(this, 'q12')">
+                                <label for="q12_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q12_pasfait" name="q12" value="pasfait" onchange="handleCheckbox(this, 'q12')">
+                                <label for="q12_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 13</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q13_fait" name="q13" value="fait" onchange="handleCheckbox(this, 'q13')">
+                                <label for="q13_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q13_pasfait" name="q13" value="pasfait" onchange="handleCheckbox(this, 'q13')">
+                                <label for="q13_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 7 : 2 questions -->
+            <div class="slide" data-slide="7" data-questions="2">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-6-du-16-au-22-Février.png" alt="Semaine 6" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 14</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q14_fait" name="q14" value="fait" onchange="handleCheckbox(this, 'q14')">
+                                <label for="q14_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q14_pasfait" name="q14" value="pasfait" onchange="handleCheckbox(this, 'q14')">
+                                <label for="q14_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 15</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q15_fait" name="q15" value="fait" onchange="handleCheckbox(this, 'q15')">
+                                <label for="q15_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q15_pasfait" name="q15" value="pasfait" onchange="handleCheckbox(this, 'q15')">
+                                <label for="q15_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 8 : 2 questions -->
+            <div class="slide" data-slide="8" data-questions="2">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-7-du-23-Février-au-1er-Mars.png" alt="Semaine 7" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 16</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q16_fait" name="q16" value="fait" onchange="handleCheckbox(this, 'q16')">
+                                <label for="q16_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q16_pasfait" name="q16" value="pasfait" onchange="handleCheckbox(this, 'q16')">
+                                <label for="q16_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 17</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q17_fait" name="q17" value="fait" onchange="handleCheckbox(this, 'q17')">
+                                <label for="q17_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q17_pasfait" name="q17" value="pasfait" onchange="handleCheckbox(this, 'q17')">
+                                <label for="q17_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 9 : 3 questions -->
+            <div class="slide" data-slide="9" data-questions="3">
+                <img src="images/FAIT-OU-PAS-FAIT---VIsuel-Semaine-8-du-2-au-8-Mars.png" alt="Semaine 8" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 18</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q18_fait" name="q18" value="fait" onchange="handleCheckbox(this, 'q18')">
+                                <label for="q18_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q18_pasfait" name="q18" value="pasfait" onchange="handleCheckbox(this, 'q18')">
+                                <label for="q18_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 19</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q19_fait" name="q19" value="fait" onchange="handleCheckbox(this, 'q19')">
+                                <label for="q19_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q19_pasfait" name="q19" value="pasfait" onchange="handleCheckbox(this, 'q19')">
+                                <label for="q19_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 20</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q20_fait" name="q20" value="fait" onchange="handleCheckbox(this, 'q20')">
+                                <label for="q20_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q20_pasfait" name="q20" value="pasfait" onchange="handleCheckbox(this, 'q20')">
+                                <label for="q20_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Diapo 10 : 3 questions -->
+            <div class="slide" data-slide="10" data-questions="3">
+                <img src="images/FAIT-OU-PAS-FAIT---Visuel-Semaine-9-du-9-au-15-Mars.png" alt="Semaine 9" class="slide-image">
+                <div class="questions-container">
+                    <div class="question">
+                        <div class="question-number">Question 21</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q21_fait" name="q21" value="fait" onchange="handleCheckbox(this, 'q21')">
+                                <label for="q21_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q21_pasfait" name="q21" value="pasfait" onchange="handleCheckbox(this, 'q21')">
+                                <label for="q21_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 22</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q22_fait" name="q22" value="fait" onchange="handleCheckbox(this, 'q22')">
+                                <label for="q22_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q22_pasfait" name="q22" value="pasfait" onchange="handleCheckbox(this, 'q22')">
+                                <label for="q22_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="question">
+                        <div class="question-number">Question 23</div>
+                        <div class="checkbox-group">
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q23_fait" name="q23" value="fait" onchange="handleCheckbox(this, 'q23')">
+                                <label for="q23_fait">✅ Fait</label>
+                            </div>
+                            <div class="checkbox-option">
+                                <input type="checkbox" id="q23_pasfait" name="q23" value="pasfait" onchange="handleCheckbox(this, 'q23')">
+                                <label for="q23_pasfait">❌ Pas fait</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="navigation">
+                <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)" disabled>
+                    <i class="fas fa-arrow-left"></i> Précédent
+                </button>
+                <div class="progress" id="progress">1 / 10</div>
+                <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">
+                    Suivant <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- Résultats -->
+            <div class="result-container" id="resultContainer">
+                <div class="result-image">🎉</div>
+                <h2 style="color: #2c5f5d; margin-bottom: 1rem;">Résultat du Quiz</h2>
+                <div class="result-score" id="resultScore">0 / 23</div>
+                <div class="result-message" id="resultMessage"></div>
+                <button class="restart-button" onclick="restartQuiz()">
+                    <i class="fas fa-redo"></i> Recommencer le quiz
+                </button>
+                <br>
+                <a href="index.html" class="back-to-site">← Retour au site</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 10;
+
+        // Gérer les cases à cocher (une seule peut être cochée à la fois)
+        function handleCheckbox(checkbox, questionName) {
+            const checkboxes = document.getElementsByName(questionName);
+            checkboxes.forEach(cb => {
+                if (cb !== checkbox) {
+                    cb.checked = false;
+                }
+            });
+        }
+
+        // Changer de slide
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentSlide - 1].classList.remove('active');
+
+            currentSlide += direction;
+
+            // Si on arrive à la fin, afficher les résultats
+            if (currentSlide > totalSlides) {
+                showResults();
+                return;
+            }
+
+            slides[currentSlide - 1].classList.add('active');
+            updateNavigation();
+
+            // Scroller vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mettre à jour la navigation
+        function updateNavigation() {
+            document.getElementById('prevBtn').disabled = currentSlide === 1;
+            document.getElementById('progress').textContent = `${currentSlide} / ${totalSlides}`;
+
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentSlide === totalSlides) {
+                nextBtn.innerHTML = 'Voir les résultats <i class="fas fa-check"></i>';
+            } else {
+                nextBtn.innerHTML = 'Suivant <i class="fas fa-arrow-right"></i>';
+            }
+        }
+
+        // Calculer et afficher les résultats
+        function showResults() {
+            let score = 0;
+
+            // Compter le nombre de "Fait" cochés
+            for (let i = 1; i <= 23; i++) {
+                const faitCheckbox = document.getElementById(`q${i}_fait`);
+                if (faitCheckbox && faitCheckbox.checked) {
+                    score++;
+                }
+            }
+
+            // Afficher le score
+            document.getElementById('resultScore').textContent = `${score} / 23`;
+
+            // Message personnalisé selon le score
+            let message = '';
+            let emoji = '🎉';
+
+            if (score >= 20) {
+                emoji = '🏆';
+                message = '<strong>Excellent !</strong><br>Vous suivez notre campagne de très près ! Vous êtes un(e) électeur/électrice engagé(e) et bien informé(e). Merci pour votre soutien !';
+            } else if (score >= 15) {
+                emoji = '👏';
+                message = '<strong>Très bien !</strong><br>Vous suivez régulièrement notre campagne. Continuez comme ça ! N\'hésitez pas à partager nos actualités avec votre entourage.';
+            } else if (score >= 10) {
+                emoji = '👍';
+                message = '<strong>Bien !</strong><br>Vous êtes sur la bonne voie ! Suivez-nous sur Facebook et Instagram pour ne rien manquer de nos prochaines actualités.';
+            } else if (score >= 5) {
+                emoji = '📱';
+                message = '<strong>À améliorer !</strong><br>Il vous reste encore beaucoup à découvrir sur notre campagne. Suivez-nous sur les réseaux sociaux et venez nous rencontrer à notre local !';
+            } else {
+                emoji = '📢';
+                message = '<strong>On vous attend !</strong><br>N\'hésitez pas à nous suivre sur Facebook et Instagram, et à venir nous rencontrer à notre local de campagne pour découvrir notre projet !';
+            }
+
+            document.querySelector('.result-image').textContent = emoji;
+            document.getElementById('resultMessage').innerHTML = message;
+
+            // Cacher le quiz et afficher les résultats
+            document.querySelectorAll('.slide').forEach(slide => slide.style.display = 'none');
+            document.querySelector('.navigation').style.display = 'none';
+            document.getElementById('resultContainer').classList.add('active');
+
+            // Scroller vers le haut
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Recommencer le quiz
+        function restartQuiz() {
+            // Réinitialiser toutes les cases à cocher
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+
+            // Réinitialiser le slide
+            currentSlide = 1;
+            document.querySelectorAll('.slide').forEach((slide, index) => {
+                slide.style.display = '';
+                slide.classList.remove('active');
+                if (index === 0) slide.classList.add('active');
+            });
+
+            // Réafficher la navigation
+            document.querySelector('.navigation').style.display = 'flex';
+            document.getElementById('resultContainer').classList.remove('active');
+
+            updateNavigation();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialiser
+        updateNavigation();
+    </script>
+</body>
+</html>

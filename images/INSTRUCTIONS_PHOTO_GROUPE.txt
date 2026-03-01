@@ -1,0 +1,55 @@
+═══════════════════════════════════════════════════════════════
+  INSTRUCTIONS : Comment ajouter la photo de groupe
+═══════════════════════════════════════════════════════════════
+
+Vous devez placer la photo de groupe dans ce dossier.
+
+📁 EMPLACEMENT :
+   Placez votre photo dans le dossier : images/
+
+📝 NOM DU FICHIER :
+   Le fichier doit s'appeler EXACTEMENT : "Groupe original.jpg"
+   (avec un espace entre "Groupe" et "original")
+
+📂 VOTRE PHOTO SE TROUVE ICI :
+   D:\Documents\Municipales 2026\Photos Trombinoscope
+
+═══════════════════════════════════════════════════════════════
+  MÉTHODE SIMPLE (Si vous utilisez Git)
+═══════════════════════════════════════════════════════════════
+
+1. Ouvrez votre explorateur Windows
+
+2. Allez dans votre projet local Git :
+   Exemple : C:\Users\VotreNom\Documents\municipale-chateau-renault-2026\
+
+3. Ouvrez le dossier "images"
+
+4. Copiez votre photo de groupe depuis :
+   D:\Documents\Municipales 2026\Photos Trombinoscope
+
+5. Collez-la dans le dossier "images"
+
+6. Renommez-la en : Groupe original.jpg
+
+7. Ouvrez Git Bash (ou votre terminal Git) et tapez :
+   git add images/"Groupe original.jpg"
+   git commit -m "Ajouter la photo de groupe originale"
+   git push
+
+═══════════════════════════════════════════════════════════════
+  ALTERNATIVE : Partage via un lien
+═══════════════════════════════════════════════════════════════
+
+Si vous avez la photo sur Google Drive, Dropbox, ou WeTransfer :
+1. Uploadez la photo
+2. Créez un lien de partage public
+3. Donnez-moi le lien
+4. Je la téléchargerai automatiquement
+
+═══════════════════════════════════════════════════════════════
+
+Une fois la photo ajoutée, le script pourra ajouter les 3 colistiers
+manquants sur la photo de groupe !
+
+═══════════════════════════════════════════════════════════════
