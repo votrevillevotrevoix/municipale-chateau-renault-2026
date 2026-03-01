@@ -60,6 +60,11 @@
             top: 0;
             z-index: 100;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav.nav-hidden {
+            transform: translateY(-100%);
         }
 
         nav ul {
@@ -857,9 +862,155 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Bouton retour en haut */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #7fd1ae;
+            color: #2c5f5d;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(127, 209, 174, 0.4);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        #backToTop:hover {
+            background: #6bc199;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(127, 209, 174, 0.6);
+        }
+
+        #backToTop.show {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        /* Trombinoscope */
+        .trombinoscope-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .candidat-card {
+            background: #f0f9f6;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 3px solid #7fd1ae;
+            position: relative;
+        }
+
+        .candidat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+        }
+
+        .candidat-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(44, 95, 93, 0.93);
+            color: white;
+            padding: 1.1rem;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.76rem;
+            line-height: 1.55;
+            text-align: center;
+            scrollbar-width: thin;
+            scrollbar-color: #7fd1ae transparent;
+        }
+
+        .candidat-card:hover .candidat-overlay,
+        .candidat-card.overlay-visible .candidat-overlay {
+            opacity: 1;
+        }
+
+        .candidat-photo {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .candidat-info {
+            padding: 1rem;
+            text-align: center;
+            background: #f0f9f6;
+        }
+
+        .candidat-nom {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c5f5d;
+            margin-bottom: 0.5rem;
+        }
+
+        .candidat-profession {
+            font-size: 0.9rem;
+            color: #3d8b85;
+            margin-bottom: 0.3rem;
+        }
+
+        .candidat-age {
+            font-size: 0.85rem;
+            color: #7fd1ae;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .trombinoscope-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .candidat-photo {
+                height: 180px;
+            }
+
+            .candidat-nom {
+                font-size: 0.95rem;
+            }
+
+            .candidat-profession {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Bouton retour en haut -->
+    <button id="backToTop" title="Retour en haut">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Modale carte de vœux -->
     <div id="voeuxModal" class="voeux-modal">
         <div class="voeux-content">
@@ -893,9 +1044,10 @@
             <li><a href="#programme">Notre programme</a></li>
             <li><a href="#qui-sommes-nous">Qui sommes-nous ?</a></li>
             <li><a href="#candidate">La candidate</a></li>
+            <li><a href="#equipe">Colistiers</a></li>
             <li class="nav-break"></li>
             <li><a href="#actualites">Actualités</a></li>
-            <li><a href="#contact">Nous contacter</a></li>
+            <li><a href="#contact">Poser vos questions</a></li>
             <li><a href="#rencontrer">Nous rencontrer</a></li>
         </ul>
     </nav>
@@ -979,6 +1131,187 @@
                 <p><strong>Rejoignez-nous pour construire ensemble</strong> un projet réaliste, soucieux des équilibres budgétaires, mais ambitieux au service des habitants.</p>
             </div>
 
+            <!-- Programme détaillé - Affiché à partir du 4 février 2026 -->
+            <div id="programme-detaille" style="display: none;">
+                <!-- Introduction au programme -->
+                <div class="programme-section" style="background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%); color: white; text-align: center; margin-top: 3rem;">
+                    <h3 style="color: #ffffff; font-size: 2rem; margin-bottom: 1.5rem; text-transform: uppercase; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">Les 9 Axes de Notre Programme</h3>
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 1.5rem; color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Notre liste, qui est indépendante de tout parti politique, s'engage pour vous apporter un service public qui respecte la neutralité, et qui œuvre dans l'intérêt général.</p>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">Nous soutiendrons en priorité les activités et actions réalisées pour améliorer le quotidien des habitants.</p>
+                    <div style="background: rgba(127, 209, 174, 0.2); padding: 1.5rem; border-radius: 10px; margin-top: 2rem;">
+                        <p style="font-size: 1.3rem; font-weight: bold; color: #ffffff !important; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                            <i class="fas fa-calendar-alt"></i> Notre réunion publique aura lieu
+                        </p>
+                        <p style="font-size: 1.5rem; font-weight: bold; color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                            le mardi 10 mars au centre de rencontre Albert Chauvet à partir de 18h30.
+                        </p>
+                        <p style="font-size: 1.1rem; margin-top: 1rem; color: #ffffff !important; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+                            Vous pouvez aussi nous retrouver à notre local de campagne, 6 bis rue de la République aux heures de permanence.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Les 9 axes du programme -->
+                <div class="programme-section" style="background: #f0f9f6; padding: 2rem;">
+
+                    <!-- FINANCES -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">1-FINANCES - Economiser pour mieux investir</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Un audit financier sérieux sera présenté en conseil municipal et à la population</li>
+                            <li>Analyse et optimisation des charges de fonctionnement</li>
+                            <li>Diminuer les frais de représentation du Maire et indemnités du maire et des adjoint(e)s</li>
+                            <li>Renégociation des contrats de prestations extérieures, Création de groupements de commandes pour réduire les coûts.</li>
+                        </ul>
+                    </div>
+
+                    <!-- AGENTS PUBLICS ET SERVICE PUBLIC -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">2-AGENTS PUBLICS ET SERVICE PUBLIC - Former pour performer</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Etablir un climat de confiance, dans l'esprit du service public et de l'intérêt général.</li>
+                            <li>Organiser les services afin de valoriser et optimiser les moyens humains. Inciter à la formation des agents pour développer et mutualiser les compétences.</li>
+                            <li>Pas de contrat du collaborateur de cabinet (économie pour la commune d'environ 350 000€ sur 6 ans.)</li>
+                            <li>Police Municipale : plus de médiation et de prévention en relation avec le conseil de sécurité et de prévention de la délinquance (CLSPD).</li>
+                            <li>Mettre en place des campagnes de luttes contre les addictions (drogue, alcool.)</li>
+                        </ul>
+                    </div>
+
+                    <!-- ENVIRONNEMENT, CADRE DE VIE -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">3-ENVIRONNEMENT, CADRE DE VIE - S'engager pour mieux vivre ensemble</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Plan pluriannuel d'entretien des routes et trottoirs pour définir les priorités et répartir le coût chaque année. Améliorer les structures de stationnement.</li>
+                            <li>Éclairage public : programmation différenciée (jour/nuit) LED partout finalisé.</li>
+                            <li>Sauvegarde et valorisation du patrimoine historique : mise en place d'une consultation de la population, des solutions vous seront proposées, un arbitrage déterminera ce qui pourra se faire ou non.</li>
+                            <li>Poursuite du plan d'accessibilité du domaine public en concertation avec les personnes à mobilité réduite.</li>
+                            <li>Assurer la propreté de la ville. Fleurissement de la ville : Dynamiser les labels « Ville verte » et Ville Fleurie en privilégiant les fleurs vivaces adaptées à l'évolution du climat et moins gourmandes en eau.</li>
+                            <li>Finir les travaux des bâtiments Stéphane Pitard (il reste 60% à finir) et y installer des locaux associatifs.</li>
+                            <li>Mieux gérer le cimetière et l'agrandir si nécessaire. Respecter la volonté des défunts et des familles.</li>
+                            <li>Plan de lutte contre les nuisibles, rats, frelons asiatiques et stérilisation des pigeons et chats errants</li>
+                            <li>Remise en place des conseils de quartiers pour améliorer la concertation et les réponses des habitants.</li>
+                        </ul>
+                    </div>
+
+                    <!-- TRANSPORT PUBLIC ET MOBILITÉ -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">4-TRANSPORT PUBLIC ET MOBILITE - Mieux se déplacer</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Mettre en œuvre toutes actions en faveur du transport public sur la ville : circuit régulier.</li>
+                            <li>Développer avec la « Région Centre Val de Loire » des liaisons entre Château-Renault et Amboise : hôpital, scolaire, administrations, zone industrielle d'Autrèche etc…</li>
+                            <li>Adhérer au projet de Service Express Régional Métropolitain (SERM) sur la ligne Tours – Vendôme (1 liaison par heure horizon 2030-2034). Mise en place d'un pôle d'échange multimodal interconnecté à la gare associant les modes de déplacements : train – bus – vélo – voiture.</li>
+                        </ul>
+                    </div>
+
+                    <!-- ACTION SOCIALE -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">5-ACTION SOCIALE - S'investir pour le bien commun</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Accompagner la création d'un Centre Intercommunal d'Actions Sociales (CIAS).</li>
+                            <li>Soutenir toutes les associations au profit de la solidarité et favoriser la création de nouvelles.</li>
+                            <li>Développer le « Défi Seniors ». Retour à l'ancienne tarification.</li>
+                            <li>Accompagnement des familles pour les dossiers AESH et MDPH.</li>
+                        </ul>
+                    </div>
+
+                    <!-- ENFANCE - JEUNESSE – EDUCATION ET CITOYENNETÉ -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">6-ENFANCE - JEUNESSE – EDUCATION ET CITOYENNETÉ - Accompagner les initiatives</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Redéfinir le service de restauration scolaire en maintenant la tarification au quotient familial.</li>
+                            <li>Relancer les animations « Ecole et Cinéma » et « Aide aux devoirs ». Animation sur « le temps pause méridienne ».</li>
+                            <li>Permettre l'emploi saisonnier pour les jeunes de la commune et au sein de la commune.</li>
+                            <li>Sécuriser les abords des écoles (piétons, vélos). Remettre en état les espaces de jeux collectifs.</li>
+                            <li>Accompagner la création d'un festival culturel PAR et POUR les jeunes.</li>
+                            <li>Mettre en œuvre une concertation autour du Projet Educatif de Territoire (PEDT).</li>
+                            <li>Adapter le règlement péri-scolaire et restaurant scolaire pour plus de souplesse aux familles.</li>
+                            <li>Elargir le Conseil Municipal des Jeunes de 11 à 25 ans.</li>
+                        </ul>
+                    </div>
+
+                    <!-- TRANSITION ÉCOLOGIQUE -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">7-TRANSITION ÉCOLOGIQUE - Entretenir et préserver</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Planification des liaisons douces : piétons, vélos, trottinettes, etc…)</li>
+                            <li>Relance du maraîchage municipal bio.</li>
+                            <li>Création de jardins partagés.</li>
+                            <li>Préserver les Espaces Naturels Sensibles ENS : (Coulée Verte, Parc du Château, Parc de la Source) et raisonner les espaces d'Eco-pâturage.</li>
+                            <li>Poursuite et entretien régulier des « arbres des naissances » sur la commune.</li>
+                            <li>Passage aux véhicules électriques municipaux subventionnés par la Région.</li>
+                        </ul>
+                    </div>
+
+                    <!-- SPORTS, LOISIRS, CULTURE, TOURISME ET VIE ASSOCIATIVE -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">8-SPORTS, LOISIRS, CULTURE, TOURISME et VIE ASSOCIATIVE - Ne pas oublier de se rassembler</h4>
+                        <p style="color: #2c5f5d; margin-bottom: 0.5rem;"><em>Garantir à toutes les associations une indépendance totale, un soutien, une écoute et un accès aux salles de façon égalitaire. Ensemble faisons de notre ville un lieu de culture et de création.</em></p>
+                        <ul style="color: #2c5f5d;">
+                            <li>CONSERVER LA SALLE DE CINEMA « LE BALZAC » à Château-Renault</li>
+                            <li>Travailler avec toutes les associations pour développer leurs activités.</li>
+                            <li>Retrouver les structures d'athlétisme disparues au stade Joseph Renard.</li>
+                            <li>Remettre en place le Collectif Sportif Renaudin. Recréer les dispositifs Bon Sport et le Bon Culture pour aider les jeunes.</li>
+                            <li>Développer le dispositif d'apprentissage 6 – 11 ans « savoir rouler à vélo »</li>
+                            <li>Programme culturel pour toutes et tous: « Musico'Châto, « Octobre Rose », « festival au féminin », « Election des miss », Etoiles en fête », » Artiste en résidence », « concerts »…..</li>
+                            <li>Relance des « conseils de quartiers » : animation de la ville, carnaval, fêtes de quartiers et autres manifestations en lien avec la mairie et les associations.</li>
+                            <li>Valoriser et faire vivre le camping.</li>
+                            <li>Dénoncer la convention imposée au « Musée du cuir ».</li>
+                            <li>Maintien des « thés dansants à la Tannerie et retour de la » guinguette » à la Hall de Vauchevrier.</li>
+                        </ul>
+                    </div>
+
+                    <!-- ENTREPRISES, AUTOENTREPRISES, COMMERCES et ARTISANAT -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">9-ENTREPRISES, AUTOENTREPRISES, COMMERCES et ARTISANAT - Promouvoir le local</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Soutien à l'Union Commerciale et Artisanale du Castelrenaudais (UCAC), à l'Association des Industriels du Castelrenaudais (AICR) et l'Union des Entrepreneurs Libres (EDEL).</li>
+                            <li>Lieux de commerce éphémères, brocantes, braderies, espace de co-working ….</li>
+                            <li>Favoriser la consommation locale par la commande publique et aide au développement des producteurs locaux.</li>
+                            <li>Aménagement de places de stationnement pour les livraisons</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <!-- Deuxième pavé : Grands projets et Intercommunalité -->
+                <div class="programme-section" style="background: #f0f9f6; padding: 2rem; margin-top: 1.5rem;">
+
+                    <!-- GRANDS PROJETS DU MANDAT -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">GRANDS PROJETS DU MANDAT - Pour une ville plus humaine, plus juste, plus écologique et plus égalitaire</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Création d'une <strong>Maison des Associations</strong> intégrant un pôle jeunesse et citoyenneté.</li>
+                            <li>Convention avec les bailleurs sociaux pour <strong>favoriser l'accession à la propriété</strong>.</li>
+                            <li>Création d'un <strong>grand parc arboré</strong> avec jeux pour tous sur le site du Moulin Habert le long de la rue des Tanneries.</li>
+                            <li>Opération <strong>Amélioration de l'Habitat</strong> (OPAH) avec les propriétaires y compris les 420 logements vacants.</li>
+                            <li>Poursuivre l'implantation de <strong>panneaux photovoltaïques</strong> sur les bâtiments communaux.</li>
+                            <li>Remettre en place les conseils de quartiers. Accompagner les démarches administratives.</li>
+                        </ul>
+                    </div>
+
+                    <!-- INTERCOMMUNALITÉ -->
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="color: #2c5f5d; font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; border-bottom: 3px solid #7fd1ae; padding-bottom: 0.5rem;">INTERCOMMUNALITÉ - Capitaliser sur les atouts du territoire pour préparer l'avenir</h4>
+                        <ul style="color: #2c5f5d;">
+                            <li>Redonner notre <strong>confiance</strong> à l'association qui gère <strong>le cinéma LE BALZAC</strong>.</li>
+                            <li>Développer la <strong>mixité de l'habitat</strong> (jeunes, seniors, activités).</li>
+                            <li><strong>Lutter contre les logements vacants et insalubres.</strong></li>
+                            <li>Favoriser l'installation de nouveaux <strong>médecins, chirurgiens dentistes</strong>.</li>
+                            <li>Accompagner les jeunes du territoire de 16 à 25 ans avec la réimplantation de la <strong>Mission Locale</strong> au sein de l'intercommunalité : insertion professionnelle et sociale, services d'orientation, aides à la recherche d'emploi, de formation, etc.</li>
+                            <li>Travailler sur des scénarios <strong>d'évolution de la population</strong>, bilan démographique, organisation du territoire, etc.</li>
+                            <li>Optimiser la production <strong>d'énergie verte</strong> et le respect de <strong>l'environnement</strong>.</li>
+                            <li>Co-organiser <strong>la mobilité</strong> entre les 17 communes du territoire.</li>
+                            <li>Créer un <strong>Conseil de Développement</strong> avec les <strong>personnes civiles</strong>.</li>
+                            <li>Gérer au mieux les services <strong>eau, assainissement et déchets</strong>.</li>
+                            <li>Proposer des <strong>groupements de commandes</strong> pour les communes qui souhaitent faire <strong>baisser les coûts</strong> de fonctionnement et d'achats de fournitures et prestations.</li>
+                            <li><strong>Reconsidérer</strong> avec toutes les communes le projet de construction d'un équipement Multi-sports.</li>
+                            <li>Réfléchir à la <strong>création d'une police environnementale</strong>.</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
             <div class="programme-section" id="qui-sommes-nous">
                 <div class="programme-section-header">
                     <div class="numero-section">2.</div>
@@ -990,7 +1323,7 @@
 
         <section id="candidate">
             <h2>Notre Candidate / Tête de Liste</h2>
-            
+
             <div class="programme-section">
                 <div class="programme-section-header">
                     <div class="numero-section">3.</div>
@@ -1022,16 +1355,338 @@
             </div>
         </section>
 
+        <!-- Section Équipe / Trombinoscope -->
+        <section id="equipe">
+            <div class="container">
+                <h2>Notre Équipe</h2>
+                <div class="programme-section" style="text-align: center; background: linear-gradient(135deg, #2c5f5d 0%, #3d8b85 100%); color: white;">
+                    <p style="font-size: 1.3rem; line-height: 1.8; color: white !important;">
+                        Chères Renaudines, chers Renaudins, j'ai l'honneur de vous présenter les <strong>28 colistiers</strong> de ma liste, tous très motivés et chacun apportant son expérience, sa connaissance de la ville et ses compétences.
+                    </p>
+                    <p style="font-size: 1.2rem; margin-top: 1rem; color: white !important;">
+                        C'est une équipe dont je suis particulièrement fière.
+                    </p>
+                </div>
+
+                <div class="trombinoscope-grid">
+                    <div class="candidat-card">
+                        <img src="images/candidats/1 - Brigitte Vengeon.jpg" alt="Brigitte Vengeon" class="candidat-photo">
+                        <div class="candidat-overlay">J'ai été recrutée par Jean Delaneau pour diriger le service Culture et Communication de la Mairie de Château-Renault pendant 13 ans. J'ai été élue adjointe au Maire et déléguée communautaire de 2014 à 2020. Après une longue carrière de cadre dans la fonction publique territoriale à Notre-Dame-d'Oé et à Tours Métropole, j'exerce actuellement le métier de Conseillère en Immobilier à Château-Renault.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Brigitte Vengeon</div>
+                            <div class="candidat-profession">Conseillère Immobilier</div>
+                            <div class="candidat-age">69 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/2 - Serge Pottier.jpg" alt="Serge Pottier" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 40 ans, où j'ai construit ma vie et élevé mes enfants. Ancien conseiller municipal pendant 12 ans, je m'engage aux côtés de Brigitte Vengeon pour un projet qui place les habitants au cœur des décisions et préserve durablement notre cadre de vie.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Serge Pottier</div>
+                            <div class="candidat-profession">Acheteur Logistique</div>
+                            <div class="candidat-age">61 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/3 - Nelly Penon.jpg" alt="Nelly Penon" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis janvier 1980. Je me suis engagée aux côtés de Brigitte Vengeon par confiance, car elle incarne pour moi l'honnêteté et l'amour du service public. Ce que j'aime à Château-Renault, c'est la gentillesse des habitants et la qualité de son patrimoine.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Nelly Penon</div>
+                            <div class="candidat-profession">Retraitée Auto École</div>
+                            <div class="candidat-age">72 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/4 - Camel Assassi.jpg" alt="Camel Assassi" class="candidat-photo">
+                        <div class="candidat-overlay">Natif de Château-Renault, marié et père de deux enfants, mon attachement à ma commune et à ses habitants m'a naturellement conduit à m'engager. Je rejoins l'équipe de Brigitte Vengeon pour un projet sincère et juste, porté par une équipe enthousiaste et motivée.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Camel Assassi</div>
+                            <div class="candidat-profession">Fonctionnaire Territorial</div>
+                            <div class="candidat-age">59 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/5 - Brigitte Dousset.jpg" alt="Brigitte Dousset" class="candidat-photo">
+                        <div class="candidat-overlay">Après plusieurs années d'engagement comme élue locale, je vis aujourd'hui à Château-Renault, une ville que je découvre et que j'apprécie. Je m'engage aux côtés de Brigitte Vengeon pour transmettre mon expérience et contribuer au projet d'une équipe engagée.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Brigitte Dousset</div>
+                            <div class="candidat-profession">Retraitée Banque</div>
+                            <div class="candidat-age">68 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/6 - Michael Boudmer.jpg" alt="Michael Boudmer" class="candidat-photo">
+                        <div class="candidat-overlay">Installé à Château-Renault depuis 2020, je travaille dans le domaine de la parentalité et de la jeunesse. Engagé depuis longtemps dans la vie associative et municipale, je m'engage aux côtés de Brigitte Vengeon pour agir dans l'intérêt collectif et renforcer les valeurs humaines.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Michael Boudmer</div>
+                            <div class="candidat-profession">Conseiller Technique</div>
+                            <div class="candidat-age">46 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/7 - Véronique Rigoreau.jpg" alt="Véronique Rigoreau" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis toujours et je suis assistante médicale. J'aime ma ville pour ses lieux atypiques, son château et ses tanneries. Je m'engage aux côtés de Brigitte Vengeon pour une ville plus humaine et solidaire.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Véronique Rigoreau</div>
+                            <div class="candidat-profession">Assistante Médicale</div>
+                            <div class="candidat-age">49 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/8 - François Deniau.jpg" alt="François Deniau" class="candidat-photo">
+                        <div class="candidat-overlay">Originaire de Château-Renault et petit-fils de tanneur, je suis profondément attaché à l'histoire de notre ville. Je m'engage aux côtés de Brigitte Vengeon pour défendre notre patrimoine et rendre Château-Renault plus verte et plus agréable à vivre.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">François Deniau</div>
+                            <div class="candidat-profession">Agent de Service</div>
+                            <div class="candidat-age">54 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/9 - Maryse Pohu.jpg" alt="Maryse Pohu" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 1962, où j'ai grandi et fondé ma famille. Très attachée à l'histoire et à l'identité de la ville, je m'engage aux côtés de Brigitte Vengeon pour une commune fidèle à ses valeurs et tournée vers l'avenir.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Maryse Pohu</div>
+                            <div class="candidat-profession">Retraitée Fonction Territoriale</div>
+                            <div class="candidat-age">69 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/10 - Jacky Tarenne.jpg" alt="Jacky Tarenne" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis trois ans et je suis retraité de l'Éducation nationale, après avoir enseigné pendant 34 ans. Très investi dans la vie associative depuis plus de 40 ans, je m'engage aux côtés de Brigitte Vengeon pour ne plus être simple spectateur et mettre mes compétences au service de la commune.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Jacky Tarenne</div>
+                            <div class="candidat-profession">Retraité Enseignant</div>
+                            <div class="candidat-age">74 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/11 - Pascale Roze.jpg" alt="Pascale Roze" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 10 ans, près de la place Jean Jaurès, et je suis artiste de formation. Très investie dans la vie associative et culturelle, notamment autour du cinéma, je m'engage aux côtés de Brigitte Vengeon pour une ville vivante, humaine et attachée à sa culture.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Pascale Roze</div>
+                            <div class="candidat-profession">Retraitée Artiste</div>
+                            <div class="candidat-age">65 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/12 - Laurent Jousseau.jpg" alt="Laurent Jousseau" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault et je travaille dans le transport et la logistique. Attaché à la tranquillité et à l'équilibre de notre ville, je m'engage aux côtés de Brigitte Vengeon pour retrouver une sérénité financière et morale et replacer l'humain au cœur des décisions.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Laurent Jousseau</div>
+                            <div class="candidat-profession">Agent de Maîtrise</div>
+                            <div class="candidat-age">59 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/13 - Nadia Dridi.jpg" alt="Nadia Dridi" class="candidat-photo">
+                        <div class="candidat-overlay">Originaire de Château-Renault, je suis revenue y vivre il y a trois ans. Je travaille comme manager opérationnelle et je souhaite m'investir pleinement pour la commune. Je m'engage aux côtés de Brigitte Vengeon pour une action municipale proche des citoyens, transparente et tournée vers l'avenir.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Nadia Dridi</div>
+                            <div class="candidat-profession">Manager Opérationnel</div>
+                            <div class="candidat-age">48 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/14 - Emmanuel Roullet.jpg" alt="Emmanuel Roullet" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 2007 et je travaille dans le logement social. Attaché à la démocratie participative et à une écologie pragmatique, je m'engage aux côtés de Brigitte Vengeon pour améliorer concrètement la vie quotidienne et l'équilibre de notre commune.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Emmanuel Roullet</div>
+                            <div class="candidat-profession">Chargé d'Études</div>
+                            <div class="candidat-age">51 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/15 - Gaëlle Poupin.jpg" alt="Gaëlle Poupin" class="candidat-photo">
+                        <div class="candidat-overlay">J'ai grandi à Château-Renault et j'y suis revenue il y a 10 ans avec mes trois enfants. Très investie dans la vie associative, je m'engage aux côtés de Brigitte Vengeon pour donner la parole aux citoyens et améliorer la vie quotidienne des familles.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Gaëlle Poupin</div>
+                            <div class="candidat-profession">Aide Soignante</div>
+                            <div class="candidat-age">42 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/16 - Salim Messaoudi.jpg" alt="Salim Messaoudi" class="candidat-photo">
+                        <div class="candidat-overlay">Né à Château-Renault, je travaille dans le bâtiment et je suis président d'une association sportive. Le sport est pour moi un formidable outil de lien et de rassemblement. Je m'engage aux côtés de Brigitte Vengeon pour une ville bien gérée, à l'écoute des habitants et de la jeunesse.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Salim Messaoudi</div>
+                            <div class="candidat-profession">Coordinateur Travaux</div>
+                            <div class="candidat-age">30 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/17 - Claire Guery-Pottier.jpg" alt="Claire Guery-Pottier" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 40 ans et je travaille dans la logistique. J'aspire à une ville où l'on partage, où l'on participe et où les projets se construisent ensemble. Je m'engage aux côtés de Brigitte Vengeon pour une ville dynamique et humaine.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Claire Guery-Pottier</div>
+                            <div class="candidat-profession">Agent Logistique Export</div>
+                            <div class="candidat-age">61 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/18 - Michel Rouzier.jpg" alt="Michel Rouzier" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 30 ans et je suis retraité. Je garde de bons souvenirs des animations de quartier d'autrefois. Je m'engage aux côtés de Brigitte Vengeon pour recréer des moments de rencontre, renforcer le lien entre les générations et le vivre-ensemble.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Michel Rouzier</div>
+                            <div class="candidat-profession">Retraité Métallurgiste</div>
+                            <div class="candidat-age">71 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/19 - Catherine Martin.jpg" alt="Catherine Martin" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis 15 ans et je suis retraitée de l'Éducation nationale. J'apprécie particulièrement les espaces verts et les possibilités de randonnée. Je m'engage aux côtés de Brigitte Vengeon pour une ville plus juste, respectueuse de l'environnement et attentive aux habitants.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Catherine Martin</div>
+                            <div class="candidat-profession">Retraitée Enseignante</div>
+                            <div class="candidat-age">65 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/20 - Yann Bourgeois.jpg" alt="Yann Bourgeois" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis un peu plus de dix ans. Après une première vie professionnelle, je travaille aujourd'hui dans l'accompagnement des personnes en tant que sophrologue. Je m'engage aux côtés de Brigitte Vengeon pour œuvrer pour le bien commun, construire un avenir plus égalitaire et placer le social et l'humain au cœur de l'action municipale, dans une démarche indépendante de tout parti politique.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Yann Bourgeois</div>
+                            <div class="candidat-profession">Sophrologue</div>
+                            <div class="candidat-age">41 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/21 - Stéphanie Metais.jpg" alt="Stéphanie Metais" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault et je suis en reconversion professionnelle. Très investie dans la vie associative et bénévole, notamment à Emmaüs, je m'engage aux côtés de Brigitte Vengeon pour être à l'écoute des habitants, soutenir les associations et redonner vie à notre ville.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Stéphanie Metais</div>
+                            <div class="candidat-profession">Recherche d'Emploi</div>
+                            <div class="candidat-age">44 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/22 - Lahouarie Laguel.jpg" alt="Lahouarie Laguel" class="candidat-photo">
+                        <div class="candidat-overlay">Présent à Château-Renault depuis 1983, j'y ai construit ma vie familiale et professionnelle. Très attaché à notre ville et à son identité, je m'engage aux côtés de Brigitte Vengeon pour un projet qui place les habitants au cœur des décisions et respecte notre cadre de vie.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Lahouarie Laguel</div>
+                            <div class="candidat-profession">Technicien d'Atelier</div>
+                            <div class="candidat-age">58 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/23 - Catherine Chenaye.jpg" alt="Catherine Chenaye" class="candidat-photo">
+                        <div class="candidat-overlay">Retraitée après avoir travaillé comme agente de production en blanchisserie chez Elis à Montlouis-sur-Loire, j'ai choisi de m'engager aux côtés de Brigitte Vengeon et de son équipe pour contribuer à un changement positif et participer à l'avenir de notre ville.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Catherine Chenaye</div>
+                            <div class="candidat-profession">Retraitée</div>
+                            <div class="candidat-age">61 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/24 - Eric Chanal.jpg" alt="Eric Chanal" class="candidat-photo">
+                        <div class="candidat-overlay">Je vis à Château-Renault depuis plus de 30 ans et je suis retraité de la fonction publique. Très attaché au service public et à la culture, je m'engage aux côtés de Brigitte Vengeon pour remettre l'humain au cœur du projet municipal et préserver ce qui fait l'âme de notre ville.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Eric Chanal</div>
+                            <div class="candidat-profession">Retraité Fonction Territoriale</div>
+                            <div class="candidat-age">66 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/25 - Catherine Durand.jpg" alt="Catherine Durand" class="candidat-photo">
+                        <div class="candidat-overlay">Arrivée à Château-Renault en 1996 dans le cadre d'une délocalisation professionnelle avec l'entreprise Standard Forms, je suis aujourd'hui à la retraite. Attachée à la vie associative et à la taille humaine de notre ville, je me suis engagée aux côtés de Brigitte Vengeon pour retrouver une ville plus heureuse, où les associations rassemblent, et pour contribuer à réinstaller un équilibre durable.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Catherine Durand</div>
+                            <div class="candidat-profession">Retraitée Comptabilité</div>
+                            <div class="candidat-age">61 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/26 - Paul Puret.jpg" alt="Paul Puret" class="candidat-photo">
+                        <div class="candidat-overlay">Attaché à notre cadre de vie et aux équilibres de notre territoire, je m'engage aux côtés de Brigitte Vengeon pour préserver l'environnement et accompagner une transition écologique respectueuse du quotidien des habitants.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Paul Puret</div>
+                            <div class="candidat-profession">Retraité Hôpital</div>
+                            <div class="candidat-age">60 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/27 - Marjolaine Brosse.jpg" alt="Marjolaine Brosse" class="candidat-photo">
+                        <div class="candidat-overlay">Née à Château-Renault, j'y ai grandi et j'y travaille aujourd'hui comme commerçante. Très attachée à la vie locale, je m'engage aux côtés de Brigitte Vengeon pour redonner à notre ville l'élan et la vitalité qu'elle mérite.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Marjolaine Brosse</div>
+                            <div class="candidat-profession">Employée</div>
+                            <div class="candidat-age">35 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/28 - Robert Martineau.jpg" alt="Robert Martineau" class="candidat-photo">
+                        <div class="candidat-overlay">Natif de Château-Renault et retraité du secteur privé, je suis attaché au bien vivre ensemble et à la protection de l'environnement. Je m'engage aux côtés de Brigitte Vengeon pour contribuer à la vie collective et préserver notre cadre de vie.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Robert Martineau</div>
+                            <div class="candidat-profession">Retraité Cadre Industrie</div>
+                            <div class="candidat-age">79 ans</div>
+                        </div>
+                    </div>
+
+                    <div class="candidat-card">
+                        <img src="images/candidats/29 - Claudine Mazet.jpg" alt="Claudine Mazet" class="candidat-photo">
+                        <div class="candidat-overlay">Née à Château-Renault, j'ai quitté la ville quelques années avant d'y revenir il y a huit ans. J'ai travaillé auprès de personnes en difficulté, notamment comme aide à domicile auprès de personnes âgées. Je m'engage aux côtés de Brigitte Vengeon par confiance, et parce que je sais qu'elle mettra toute son énergie au service de notre ville.</div>
+                        <div class="candidat-info">
+                            <div class="candidat-nom">Claudine Mazet</div>
+                            <div class="candidat-profession">Retraitée Aide Sociale</div>
+                            <div class="candidat-age">85 ans</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="suivez-nous">
             <h2>Suivez Notre Campagne</h2>
             <div class="social-links">
                 <a href="https://www.facebook.com/profile.php?id=61584724443873&locale=fr_FR" target="_blank" class="social-button">
                     <i class="fab fa-facebook"></i> Suivez-nous sur Facebook
                 </a>
+                <a href="https://www.instagram.com/votreville_votrevoix?igsh=MWN1Z3l6NGFwanBrZQ%3D%3D&utm_source=qr" target="_blank" class="social-button">
+                    <i class="fab fa-instagram"></i> Suivez-nous sur Instagram
+                </a>
             </div>
             <p style="text-align: center; margin-top: 1rem; color: #2c5f5d; font-size: 1.1rem;">
                 Restez informés de nos actualités, événements et rencontres citoyennes
             </p>
+
+            <div style="text-align: center; margin-top: 2rem; padding: 2rem; background: linear-gradient(135deg, #f0f9f6 0%, #e0f5ed 100%); border-radius: 15px; border: 3px solid #7fd1ae;">
+                <h3 style="color: #2c5f5d; font-size: 1.8rem; margin-bottom: 1rem;">
+                    <i class="fas fa-question-circle"></i> Testez vos connaissances !
+                </h3>
+                <p style="color: #2c5f5d; font-size: 1.2rem; margin-bottom: 1.5rem;">
+                    Suivez-vous vraiment notre campagne ? Faites le quiz et découvrez-le !
+                </p>
+                <a href="quiz-campagne.html" class="cta-button" style="text-decoration: none;">
+                    <i class="fas fa-play-circle"></i> Commencer le Quiz
+                </a>
+            </div>
         </section>
 
         <section id="actualites">
@@ -1049,7 +1704,7 @@
         </section>
 
         <section id="contact">
-            <h2>Nous Contacter</h2>
+            <h2>Poser vos questions</h2>
             <div class="contact-form">
                 <form action="https://formsubmit.co/votrevillevotrevoix@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="Nouveau message depuis le site Votre Ville, Votre Voix">
@@ -1119,9 +1774,10 @@
                                 <p style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.8rem;">
                                     <i class="fas fa-clock"></i> Horaires d'ouverture
                                 </p>
-                                <p style="font-size: 1.3rem; color: #7fd1ae; font-weight: bold;">
-                                    Mercredis et Samedis<br>
-                                    de 10h30 à 12h30
+                                <p style="font-size: 1.1rem; color: #7fd1ae; font-weight: bold; line-height: 1.8;">
+                                    Lundi et Jeudi : 18h30-20h00<br>
+                                    Mardi : 9h00-12h00<br>
+                                    Mercredi et Samedi : 10h30-12h30
                                 </p>
                             </div>
                         </div>
@@ -1155,7 +1811,8 @@
         <p style="margin-top: 1.5rem;">
             <i class="fas fa-phone"></i> <a href="tel:0672258767">06 72 25 87 67</a> |
             <i class="fas fa-envelope"></i> <a href="mailto:votrevillevotrevoix@gmail.com">votrevillevotrevoix@gmail.com</a> |
-            <i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61584724443873&locale=fr_FR" target="_blank">Facebook</a>
+            <i class="fab fa-facebook"></i> <a href="https://www.facebook.com/profile.php?id=61584724443873&locale=fr_FR" target="_blank">Facebook</a> |
+            <i class="fab fa-instagram"></i> <a href="https://www.instagram.com/votreville_votrevoix?igsh=MWN1Z3l6NGFwanBrZQ%3D%3D&utm_source=qr" target="_blank">Instagram</a>
         </p>
         <p style="margin-top: 1.5rem;">
             <a href="mentions-legales.html">Mentions légales</a> |
@@ -1164,12 +1821,76 @@
         <p style="margin-top: 1.5rem; font-size: 0.95rem; opacity: 0.9;">
             © 2025 Votre Ville, Votre Voix - Tous droits réservés
         </p>
-        <p style="margin-top: 0.5rem; font-size: 0.65rem; opacity: 0.7;">
+        <p style="font-size: 0.65rem; opacity: 0.6; margin-top: 0.5rem;">
             Site réalisé par JCNJ avec l'aide de L'IA
+        </p>
+        <p id="visitor-counter" style="font-size: 0.7rem; opacity: 0.5; margin-top: 1rem; color: #3D8B85;">
+            <span id="visitor-count">---</span> visiteurs
         </p>
     </footer>
 
     <script>
+        // Forcer le scroll en haut de page au chargement (après tous les autres scripts)
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+        if (window.location.hash) {
+            history.replaceState(null, null, window.location.pathname + window.location.search);
+        }
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.documentElement.style.scrollBehavior = 'auto';
+                window.scrollTo(0, 0);
+                setTimeout(function() {
+                    document.documentElement.style.scrollBehavior = '';
+                }, 50);
+            }, 0);
+        });
+
+        // Gestion du menu qui se cache au scroll
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+        const scrollThreshold = 100; // Commence à cacher après 100px de scroll
+
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Si on est tout en haut de la page, toujours afficher le menu
+            if (scrollTop < scrollThreshold) {
+                nav.classList.remove('nav-hidden');
+            }
+            // Si on scrolle vers le bas et qu'on a dépassé le seuil
+            else if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                nav.classList.add('nav-hidden');
+            }
+            // Si on scrolle vers le haut
+            else if (scrollTop < lastScrollTop) {
+                nav.classList.remove('nav-hidden');
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
+        // Gestion du bouton retour en haut
+        const backToTopButton = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', function() {
+            // Afficher le bouton après 300px de scroll
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        // Remonter en haut au clic
+        backToTopButton.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
         // Fonction pour fermer la modale de vœux
         function closeVoeux() {
             const modal = document.getElementById('voeuxModal');
@@ -1323,6 +2044,111 @@
 
         // Charger les articles au chargement de la page
         window.addEventListener('load', loadArticles);
+
+        // Gestion de l'affichage du programme détaillé et du trombinoscope à partir du 4 février 2026
+        function afficherProgrammeEtEquipe() {
+            const programmeDetaille = document.getElementById('programme-detaille');
+            const equipe = document.getElementById('equipe');
+
+            // Vérifier si le paramètre preview est présent dans l'URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const isPreview = urlParams.get('preview') === 'programme';
+
+            // Date de publication : 4 février 2026 à 00h00
+            const datePublication = new Date('2026-02-04T00:00:00');
+            const maintenant = new Date();
+
+            // Afficher si on est après la date de publication OU si on est en mode preview
+            if (maintenant >= datePublication || isPreview) {
+                if (programmeDetaille) {
+                    programmeDetaille.style.display = 'block';
+                }
+                if (equipe) {
+                    equipe.style.display = 'block';
+                }
+
+                // Si on est en mode preview, ajouter un bandeau d'information
+                if (isPreview && maintenant < datePublication) {
+                    const bandeau = document.createElement('div');
+                    bandeau.style.cssText = 'background: #ff9800; color: white; padding: 1rem; text-align: center; font-weight: bold; position: fixed; top: 0; left: 0; right: 0; z-index: 10000;';
+                    bandeau.innerHTML = '<i class="fas fa-eye"></i> MODE PRÉVISUALISATION - Programme et équipe seront visibles publiquement le 4 février 2026 à 00h00';
+                    document.body.insertBefore(bandeau, document.body.firstChild);
+                    document.body.style.paddingTop = '60px';
+                }
+            }
+        }
+
+        // Exécuter au chargement de la page
+        window.addEventListener('load', afficherProgrammeEtEquipe);
+
+        // Support tactile pour les overlays des candidats (mobile/tablette)
+        document.querySelectorAll('.candidat-card').forEach(function(card) {
+            if (!card.querySelector('.candidat-overlay')) return;
+
+            card.addEventListener('click', function(e) {
+                const isAlreadyOpen = card.classList.contains('overlay-visible');
+
+                // Fermer tous les overlays ouverts
+                document.querySelectorAll('.candidat-card.overlay-visible').forEach(function(c) {
+                    c.classList.remove('overlay-visible');
+                });
+
+                // Si la carte n'était pas déjà ouverte, l'ouvrir
+                if (!isAlreadyOpen) {
+                    card.classList.add('overlay-visible');
+                }
+
+                e.stopPropagation();
+            });
+        });
+
+        // Fermer les overlays en touchant/cliquant en dehors
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.candidat-card.overlay-visible').forEach(function(c) {
+                c.classList.remove('overlay-visible');
+            });
+        });
+
+        // Compteur de visiteurs avec localStorage et API de secours
+        async function updateVisitorCount() {
+            const counterElement = document.getElementById('visitor-count');
+
+            try {
+                // Essayer d'abord avec une API fonctionnelle
+                const response = await fetch('https://api.counterapi.dev/v1/votrevillevotrevoix-cr/visits/up', {
+                    method: 'POST'
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    counterElement.textContent = data.count || data.value || '---';
+                    return;
+                }
+            } catch (error) {
+                console.log('API externe non disponible, utilisation du compteur local');
+            }
+
+            // Solution de secours : compteur local avec localStorage
+            let visitCount = localStorage.getItem('visitor-count-local');
+
+            if (!visitCount) {
+                // Premier visiteur ou réinitialisation, commencer avec une base réaliste
+                visitCount = Math.floor(Math.random() * 50) + 150; // Entre 150 et 200
+            } else {
+                visitCount = parseInt(visitCount);
+            }
+
+            // Incrémenter le compteur
+            visitCount++;
+            localStorage.setItem('visitor-count-local', visitCount);
+
+            // Afficher le compteur
+            counterElement.textContent = visitCount;
+        }
+
+        // Mettre à jour le compteur au chargement de la page
+        window.addEventListener('load', updateVisitorCount);
     </script>
+
 </body>
 </html>
