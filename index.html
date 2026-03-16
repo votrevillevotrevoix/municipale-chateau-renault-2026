@@ -1005,6 +1005,100 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* ===== CARROUSEL PROGRAMME ===== */
+        .carrousel-section {
+            background: #1a3f3e;
+            padding: 2.5rem 0;
+        }
+
+        .carrousel-section h2 {
+            text-align: center;
+            color: #7fd1ae;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        .carrousel-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+
+        .carrousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carrousel-track img {
+            min-width: 100%;
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carrousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(44, 95, 93, 0.85);
+            color: white;
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 1.3rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.2s;
+        }
+
+        .carrousel-btn:hover {
+            background: #7fd1ae;
+            color: #1a3f3e;
+        }
+
+        .carrousel-btn.prev { left: 12px; }
+        .carrousel-btn.next { right: 12px; }
+
+        .carrousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 1.2rem;
+        }
+
+        .carrousel-dots button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(127, 209, 174, 0.35);
+            cursor: pointer;
+            transition: background 0.2s;
+            padding: 0;
+        }
+
+        .carrousel-dots button.active {
+            background: #7fd1ae;
+        }
+
+        .carrousel-counter {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-top: 0.6rem;
+        }
+
+        @media (max-width: 768px) {
+            .carrousel-wrapper { border-radius: 6px; }
+            .carrousel-btn { width: 36px; height: 36px; font-size: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -1068,6 +1162,30 @@
                 <p>Rejoignez-nous pour construire ensemble un projet réaliste, soucieux des équilibres budgétaires, mais ambitieux au service des habitants.</p>
                 <a href="#programme" class="cta-button">Découvrir notre programme</a>
             </div>
+        </section>
+
+        <!-- ===== CARROUSEL PROGRAMME ===== -->
+        <section class="carrousel-section">
+            <h2><i class="fas fa-images"></i> Notre programme en images</h2>
+            <div class="carrousel-wrapper">
+                <div class="carrousel-track" id="carrouselTrack">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-1.jpg" alt="Programme - Axe 1">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-2.jpg" alt="Programme - Axe 2">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-3.jpg" alt="Programme - Axe 3">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-4.jpg" alt="Programme - Axe 4">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-5.jpg" alt="Programme - Axe 5">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-6.jpg" alt="Programme - Axe 6">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-7.jpg" alt="Programme - Axe 7">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-8.jpg" alt="Programme - Axe 8">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-9.jpg" alt="Programme - Axe 9">
+                    <img src="images/PROGRAMME-DETAILLE-Visuel-10.jpg" alt="Programme - Axe 10">
+                    <img src="images/REMERCIEMENTS-Réseaux-Sociaux-VERSION-2.jpg" alt="Remerciements">
+                </div>
+                <button class="carrousel-btn prev" onclick="carrouselMove(-1)" aria-label="Image précédente">&#8249;</button>
+                <button class="carrousel-btn next" onclick="carrouselMove(1)" aria-label="Image suivante">&#8250;</button>
+            </div>
+            <div class="carrousel-dots" id="carrouselDots"></div>
+            <p class="carrousel-counter" id="carrouselCounter">1 / 11</p>
         </section>
 
         <section id="avenir">
@@ -2151,6 +2269,51 @@
 
         // Mettre à jour le compteur au chargement de la page
         window.addEventListener('load', updateVisitorCount);
+    </script>
+
+    <script>
+        // ===== CARROUSEL PROGRAMME =====
+        (function() {
+            var total = 11;
+            var current = 0;
+
+            var track = document.getElementById('carrouselTrack');
+            var dotsContainer = document.getElementById('carrouselDots');
+            var counter = document.getElementById('carrouselCounter');
+
+            // Créer les points
+            for (var i = 0; i < total; i++) {
+                var btn = document.createElement('button');
+                btn.setAttribute('aria-label', 'Image ' + (i + 1));
+                btn.addEventListener('click', (function(idx) {
+                    return function() { goTo(idx); };
+                })(i));
+                dotsContainer.appendChild(btn);
+            }
+
+            function goTo(index) {
+                current = (index + total) % total;
+                track.style.transform = 'translateX(-' + (current * 100) + '%)';
+                counter.textContent = (current + 1) + ' / ' + total;
+                var dots = dotsContainer.querySelectorAll('button');
+                dots.forEach(function(d, i) {
+                    d.classList.toggle('active', i === current);
+                });
+            }
+
+            window.carrouselMove = function(dir) { goTo(current + dir); };
+
+            // Init
+            goTo(0);
+
+            // Swipe tactile mobile
+            var startX = 0;
+            track.parentElement.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; });
+            track.parentElement.addEventListener('touchend', function(e) {
+                var diff = startX - e.changedTouches[0].clientX;
+                if (Math.abs(diff) > 40) window.carrouselMove(diff > 0 ? 1 : -1);
+            });
+        })();
     </script>
 
 </body>
